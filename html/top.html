@@ -22,15 +22,50 @@
 <body>
     <div id = "left">
         <div id = "listener">
+            <!-- buttons to parts of the site (all shows, djs, schedules, etc) -->
+
             <!--search bar here-->
+            <form id="search_form" action="search_results.php" method="get"> <!-- FILL IN ACTION="" -->
+                Keyword: <input type="text" size="50" name="keyword" id="search_key" />
+                Search by: <select name="criteria" id="search_criteria">
+                    <option value="all">All</option>
+                    <option value="dj">DJs and hosts</option>
+                    <option value="artist">Artists</option>
+                    <option value="show">Shows</options>
+                </select>
+                <input type="submit" class="button" value="Search" name="search_button" />
+            </form>
+
             <!--back button here-->
+
         </div>
         <div id = "dj">
             <div id ="logged_in_dj" class = "in">
                 <!--dj in form here-->
+                <!-- display dj's name -->
+                <form id="dj_control" action="" method="post"> <!-- FILL IN ACTION="" -->
+                    <input type="submit" class="button" value="Add track" name="add_track_button" />
+                    <input type="submit" class="button" value="Add DJ name" name="add_dj_name_button" />
+                    <input type="submit" class="button" value="Change email" name="change_email_button" />
+                    <!-- dropdown to select DJ names for that user -->
+                    <select name="dj_name" id="djs_names">
+                        <!-- FUNCTION with array of dj's names stored in session -->
+                    </select>
+                </form>
+
+                <form id="dj_logout" action="" method="post"> <!-- FILL IN ACTION="" -->
+                    <input type="submit" class="button" value="Log out" name="logout_button" />
+                </form>
+
             </div>
             <div id = "logged_out_dj" class = "out">
-                <!--logged out fprm here-->
+                <!--logged out form here-->
+                <form id="dj_login" action="" method="post"> <!-- FILL IN ACTION="" -->
+                    Username: <input type="text" size="10" name="user" id="username" />
+                    Password: <input type="password" name="password" id="pass" />
+                    <input type="submit" class="button" value="Log in" name="login_button" />
+                    <input type="submit" class="button" value="Forgot password" name="forgot_pass_button" />
+                </form>
             </div>
         </div>
     </div>
@@ -58,6 +93,13 @@
         </div>
         <div id = "manager">
             <!--manager console here-->
+            <form id="manager_control" action="" method="post">  <!-- FILL IN ACTION="" -->
+                <input type="submit" class="button" value="Audit view" name="audit_view_button" />
+                <input type="submit" class="button" value="Schedule creation view" name="schedule_creation_view_button" />
+                <input type="submit" class="button" value="Add show" name="add_show_button" />
+                <input type="submit" class="button" value="Add user" name="add_user_button" />
+                <input type="submit" class="button" value="Add user to show" name="add_user_to_show_button" />
+            </form>
         </div>
     </div>
     
