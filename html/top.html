@@ -1,0 +1,68 @@
+<?php
+    update_user_state();
+    update_history(); 
+
+   ?>
+     
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title><?php echo($pageTitle); ?></title>
+    <link href="style/base.css" rel="stylesheet">
+    <script src="script/base.js"></script>
+    <?php 
+                inc_style($styles);
+                inc_script($scripts);
+                setCSS(); //user state specific css
+                 
+    ?>
+</head>
+
+<body>
+    <div id = "left">
+        <div id = "listener">
+            <!--search bar here-->
+            <!--back button here-->
+        </div>
+        <div id = "dj">
+            <div id ="logged_in_dj" class = "in">
+                <!--dj in form here-->
+            </div>
+            <div id = "logged_out_dj" class = "out">
+                <!--logged out fprm here-->
+            </div>
+        </div>
+    </div>
+    <div id = "middle">
+        <div id = "header">
+            <!--wrfi image here-->
+        </div>
+        <div id = "message">
+            <!--messages to user drawn here-->
+            <?php draw_message(); ?>
+             <div id = "jsmessage"></div>
+        </div>
+        <div id = "content">
+            <!--block and line content here-->
+            <!---forward/backward results here-->
+        </div>
+        <div id = "editing">
+            <!--editing panel to hold various things-->
+        </div>
+    </div>
+    <div id = "right">
+        <div id = "streaming">
+            <!--streaming console here-->
+            <!--test for js?-->
+        </div>
+        <div id = "manager">
+            <!--manager console here-->
+        </div>
+    </div>
+    
+
+
+
+</body>
+</html>

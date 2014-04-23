@@ -1,0 +1,56 @@
+
+PAGE 
+styles : string array
+scripts :string array
+
+SESSION
+this_page :string
+this_page_title :string
+history :string
+title_history :string
+
+
+POST
+back
+
+GLOBALS
+base_url : string array
+page_title :string array
+message : string
+error_message : string
+lengths :assoc array of name_min, name_max where name is feild
+
+FUNCTIONS
+update_history()
+clear_history()
+get_last_url()
+get_last_title()
+
+update_state()
+logout()
+login()
+
+clean(string)
+get/set/unset_post/session/get/global(name, [value])
+
+email(subject, contents, address, username)
+validate_email(string)
+
+random_password() : string
+
+setCSS() 
+inc_script(url_array)
+inc_style(url_array)
+
+is_right_dj(bool) :bool
+is_dj() :bool
+is_aux(): bool
+is_manager() :bool
+
+warn(bool, message): bool
+
+print_error_message(message)
+print_message(message)
+
+get_time() : current date in sql form
+validate(uncleaned_string) : cleaned string

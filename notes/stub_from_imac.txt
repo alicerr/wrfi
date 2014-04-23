@@ -1,0 +1,60 @@
+Cell
+	class
+	content
+
+line
+	cell array
+	
+
+has_access_to_time(start_time, user) : bool
+is_lev_2 (user) or get_show_with_buffer(user)
+
+has_access_to_show(user, show_id, shows)
+is_lev_2 (user) or is_users_show(show_id, shows)
+
+
+
+all_shows_of_user(user_id)
+query = select show_name from user_show where user_id = $user_id
+return get_cat_as_array("show_name", get_all(query))
+
+is_users_show(show_id, shows) = array_search(show_id, shows);
+
+is_admin(user)
+query_string = "SELECT * FROM users WHERE user_id LIKE $user AND level = 3"
+return exists(query_string)
+
+get_cat_as_array(cat, res)
+$num = 0;
+$ret = array()
+foreach ($res as $r)
+$ret[$num] = $r[cat];
+$num = $num + 1;
+if sizeof($ret) = 0 then return null else return $ret
+
+
+
+
+get_show_with_buffer(timestmp, userid)
+min = timestamp_to_sql(timestmp-60*5)
+max = timestamp_to_sql(timestmp + 60*5)
+query = select show_name, max(start) from user_show 
+outer join show
+on user_show.show_name = show.show_name
+where start < min and end > max"
+ans = get_first(query)
+if ans return ans['show_name'] else return ""
+
+
+
+
+sql_date_to_timestamp(date)
+strtotime(date.time);
+
+date_to_timestamp(date :string, time : string, sect:am/pm)
+if sect == pm then time = time + 60*60*12
+strtotime(date.time);
+
+Jacqueline Viola (jlv78) 
+Alice Renegar (arr233) 
+Timothy O’Brien (tco9)
