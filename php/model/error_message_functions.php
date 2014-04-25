@@ -68,5 +68,13 @@ function print_message($message)
     //if other messages are in que then this one is appended
     set_global(get_global('error_message')."<p>$message</p>");
     }
+    
+    function op_feedback($op, $succ_message, $fail_message)
+    {
+        if ($op && $succ_message)
+            print_message($suc_message);
+        elseif ($fail_message)
+            print_error_message($fail_message);
+    }
 
 ?>

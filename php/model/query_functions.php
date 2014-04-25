@@ -1,6 +1,9 @@
 <?php
 
-
+function last_id(){
+    global $mysqli;
+    return $mysqli::mysqli_insert_id;
+}
 function query($query, $suppress_warnings){
     global $mysqli;
     $results = $mysqli->query($query);
