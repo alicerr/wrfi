@@ -1,0 +1,14 @@
+Link structure:
+all_dj
+all_album
+all_user
+all_show
+schedule
+search
+schedule?audit=1
+set?set_id=#&audit=1
+artist?&artist_id=#
+album&album_id=#
+show&show_name="nospacesnopuncnocaps"
+dj&dj_id=#
+set&set_id=#

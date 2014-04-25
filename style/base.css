@@ -1,0 +1,119 @@
+body {
+    font-family: 'Helvitica Neue' , Helvitica, Ariel, sans-serif;
+    background-color: #f5f2e4;
+    color: #4d3724;
+    font-size: : 0.8em;
+}
+#left, #right, #middle {
+    font-size: .9em;
+}
+h1 {
+    font-size: 2.2em;
+    color: Black;
+}
+h2{ 
+   font-variant: small-caps; 
+  color: #555555; 
+}
+
+h3 {
+    font-style: italic;
+    color: #555555;
+}
+#left, #right {
+    width: 20%;
+    z-index: 2;
+    min-width: 200px;
+    background-color: #f6fced;
+    position: fixed;
+    height: 100%;
+}
+#left {
+    top: 0;
+    left: 0;
+
+}
+#right {
+    top: 0;
+    right: 0;
+}
+#listener, #dj, #streaming, #manager {
+    background-color: white;
+    position: absolute;
+    margin: 9%;
+    width: 60%;
+    padding: 9%;
+    border: 5px solid #f6fced;
+    border-radius: 20px;
+
+}
+
+#listener, #streaming{
+	top: 12%;
+	background-color: white;
+	height: 20%;
+}
+#dj, #manager{
+	bottom: 10%;
+	height: 35%;
+
+}
+.button, input{
+		display: block;
+	position: relative;
+	width: 100%;
+		color: #111111;
+	font-size: 1.1em;
+	border-radius: 2px;
+
+
+}
+.button, input[type="submit"]{
+
+	margin: 0;
+	border: #dddddd solid 2px;
+	background-color: #efefef;
+	color: #555555;
+	padding: 3px;
+
+
+
+}
+.button:hover, input[type="submit"]:hover{
+
+	background-color: #dddddd;
+	color: black;
+
+
+
+}
+#middle{
+	width: 80%;
+	position: absolute;
+	z-index: 0;
+	left: 20%;
+	top: 0;
+
+}
+#header{
+	width: 100%;
+	z-index: 1;
+	height: 100px;
+	position: relative;
+	background-color: #B1440e;
+
+}
+#message{
+	position: relative;
+	width: 100%;
+	min-height: 20px;
+	background-color: #c4d3ea;
+}
+#editing{
+	position: fixed;
+	z-index: 1;
+	background-color: #f6fced;
+	height: 100px;
+	width: 100%;
+	bottom: 0;
+}

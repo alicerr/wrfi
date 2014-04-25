@@ -1,0 +1,28 @@
+CSS notes: several invisible elements have heights for now, so that we can see them. This is a very rough draft.
+
+we need
+
+Listener:
+Schedule
+All Shows
+All Djs
+
+DJ:
+Change Password
+Select DJ name (next to dj selection drop down)
+Current DJ name (use get_session("use_dj_name"))
+add set
+
+MANAGER:
+delete show
+add user to show should be Add To Show
+Remove From Show
+no Schedule Creation button (Delete it)
+View all Users
+
+STREAMING:
+add a back button link above streaming. use get_last_url() for the url.
+You can also use get_last_title() but you should shorten it to 10 charecters if it's above that and add elipses.
+
+
+
