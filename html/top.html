@@ -9,7 +9,7 @@
 <html>
 <head>
     <title><?php echo($pageTitle); ?></title>
-    <link href="style/base.css" rel="stylesheet">
+    <link href="../style/base.css" rel="stylesheet">
     <script src="script/base.js"></script>
     <?php 
                 inc_style($styles);
@@ -23,6 +23,10 @@
     <div id = "left">
         <div id = "listener">
             <!-- buttons to parts of the site (all shows, djs, schedules, etc) -->
+            <a href="" class="button">All shows</a>
+            <a href="" class="button">DJs</a>
+            <a href="" class="button">Upcoming Schedule</a>
+            <a href="" class="button">Artists</a>
 
             <!--search bar here-->
             <form id="search_form" action="search_results.php" method="get"> <!-- FILL IN ACTION="" -->
@@ -37,16 +41,18 @@
             </form>
 
             <!--back button here-->
+            <a href="" class="button">Back</a>
 
         </div>
         <div id = "dj">
             <div id ="logged_in_dj" class = "in">
                 <!--dj in form here-->
                 <!-- display dj's name -->
+                <h3>DJ NAME</h3>
                 <form id="dj_control" action="" method="post"> <!-- FILL IN ACTION="" -->
-                    <input type="submit" class="button" value="Add track" name="add_track_button" />
-                    <input type="submit" class="button" value="Add DJ name" name="add_dj_name_button" />
-                    <input type="submit" class="button" value="Change email" name="change_email_button" />
+                    <a href="" class="button">Add track</a> <!-- LINK TO APPROPRIATE PAGE -->
+                    <a href="" class="button">Add DJ name</a>
+                    <a href="" class="button">Change email</a>
                     <!-- dropdown to select DJ names for that user -->
                     <select name="dj_name" id="djs_names">
                         <!-- FUNCTION with array of dj's names stored in session -->
@@ -61,10 +67,10 @@
             <div id = "logged_out_dj" class = "out">
                 <!--logged out form here-->
                 <form id="dj_login" action="" method="post"> <!-- FILL IN ACTION="" -->
-                    Username: <input type="text" size="10" name="user" id="username" />
+                    Email: <input type="text" size="10" name="user" id="username" required />
                     Password: <input type="password" name="password" id="pass" />
                     <input type="submit" class="button" value="Log in" name="login_button" />
-                    <input type="submit" class="button" value="Forgot password" name="forgot_pass_button" />
+                    <a href="" class="button">Forgot password</a> <!-- LINK -->
                 </form>
             </div>
         </div>
@@ -72,6 +78,7 @@
     <div id = "middle">
         <div id = "header">
             <!--wrfi image here-->
+            <img src="../images/wrfi_logo.png" alt="WRFI">
         </div>
         <div id = "message">
             <!--messages to user drawn here-->
@@ -94,11 +101,11 @@
         <div id = "manager">
             <!--manager console here-->
             <form id="manager_control" action="" method="post">  <!-- FILL IN ACTION="" -->
-                <input type="submit" class="button" value="Audit view" name="audit_view_button" />
-                <input type="submit" class="button" value="Schedule creation view" name="schedule_creation_view_button" />
-                <input type="submit" class="button" value="Add show" name="add_show_button" />
-                <input type="submit" class="button" value="Add user" name="add_user_button" />
-                <input type="submit" class="button" value="Add user to show" name="add_user_to_show_button" />
+                <a href="" class="button">Audit view</a> <!-- LINK TO APPROPRIATE PAGE -->
+                <a href="" class="button">Schedule creation view</a>
+                <a href="" class="button">Add show</a>
+                <a href="" class="button">Add user</a>
+                <a href="" class="button">Add user to show</a>
             </form>
         </div>
     </div>
