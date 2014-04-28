@@ -1,5 +1,7 @@
-
-     
+<?php
+//bring in the setup functions and the requires
+require_once "php/controller/initial_load.php";
+?>
 <!DOCTYPE html>
 
 <html>
@@ -7,13 +9,12 @@
 <head>
     <meta charset="utf-8">
     <title><?php echo($pageTitle); ?></title>
-    <link href="../style/base2.css" rel="stylesheet">
+    <link href="style/base2.css" rel="stylesheet">
     <script src="script/base.js"></script>
     <?php 
-        inc_style($styles);
-        inc_script($scripts);
+        inc_style($styles); //load any page spec styles
+        inc_script($scripts); //load any page spec scripts
         setCSS(); //user state specific css
-        
         require_once("../php/model/history_functions.php"); //to be able to use get_last_url()
     ?>
 </head>
@@ -22,13 +23,13 @@
     <div id = "left">
         <div id = "listener">
             <!-- buttons to parts of the site (all shows, djs, schedules, etc) -->
-            <a href="../php/panels/all_shows.php" class="button">All shows</a><br>
-            <a href="../php/panels/all_djs.php" class="button">DJs</a><br>
+            <a href="php/panels/all_show.php" class="button">All shows</a><br>
+            <a href="php/panels/all_dj.php" class="button">DJs</a><br>
             <a href="" class="button">Schedule</a><br>
             <!-- <a href="" class="button">Artists</a> -->
 
             <!--search bar here-->
-            <form id="search_form" action="search_results.php" method="get"> <!-- FILL IN ACTION="" -->
+            <form id="search_form" action="search.php" method="get"> <!-- FILL IN ACTION="" -->
                 Keyword: <input type="text" size="50" name="keyword" id="search_key" />
                 Search by: <select name="criteria" id="search_criteria">
                     <option value="all">All</option>
@@ -47,33 +48,53 @@
             <div id ="logged_in_dj" class = "in">
                 <!--dj in form here-->
                 <!-- display dj's name -->
-                <h3><?php get_session('use_dj_name'); ?></h3>
-                <form id="dj_control" action="" method="post"> <!-- FILL IN ACTION="" -->
-                    <!-- <a href="" class="button">Add track</a> LINK TO APPROPRIATE PAGE -->
-                    <!-- <a href="" class="button">Add DJ name</a>
-                    <a href="" class="button">Change email</a> -->
-                    <a href="../php/panels/password_edit.php" class="button">Change password</a><br>
-                    <a href="../php/panels/set_edit.php" class="button">Add set</a><br>
-                    <!-- dropdown to select DJ names for that user -->
-                    <select name="dj_name" id="djs_names">
+                <h3>
+                    <?php
+                    //prints out selected dj name with a link to the dj page
+                    $dj_name = get_session('current_dj_name');
+                    $dj_id = get_session('current_dj_id');
+                    if ($dj_id) $dj_id = "dj.php?dj_id=".$dj_id;
+                    echo(make_link($dj_name, $dj_id));
+                    ?>
+                </h3>
+     
+                <form method = "post">
+                    <input type = "submit" name="add_track" >Add track<input>
+                </form>
+                <!-- <a href="" class="button">Add DJ name</a>
+                <a href="" class="button">Change email</a> -->
+                <form method = "post">
+                    <input type = "submit" name = "user_settings">User settings</input>
+                </form>
+                <form method = "post">
+                    <input type = "submit" name = "add_dj">Add dj</input>
+                </form>
+                <form method = "post">
+                <!-- dropdown to select DJ names for that user -->
+                    <select name="dj_id">
+                        <?php
+                        $dj_names = get_session("dj_names");
+                        $dj_ids = get_session("dj_ids");
+                        for ($i = 0; $i < count($dj_names); $i++)
+                            echo("<option value =\"".$dj_ids[$i]."\">".$dj_names[$i]."</option>");
+                        
+                         ?>
                         <!-- FUNCTION with array of dj's names stored in session -->
                     </select>
-                    <input type="submit" name="select_dj_name_button" value="Select DJ name" />
-
+                    <input type="submit" name="change_dj_name" value="Select DJ name" />
                 </form>
-
-                <form id="dj_logout" action="" method="post"> <!-- FILL IN ACTION="" -->
-                    <input type="submit" value="Log out" name="logout_button" />
+                <form  method="post"> 
+                    <input type="submit" value="Log out" name="logout" />
                 </form>
 
             </div>
             <div id = "logged_out_dj" class = "out">
                 <!--logged out form here-->
-                <form id="dj_login" action="" method="post"> <!-- FILL IN ACTION="" -->
-                    Email: <input type="text" size="10" name="user" id="username" required /><br>
+                <form  method="post"> 
+                    Email: <input type="email" name="user" id="email" required /><br>
                     Password: <input type="password" name="password" id="pass" /><br>
-                    <input type="submit" value="Log in" name="login_button" />
-                    <a href="" class="button">Forgot password</a> <!-- LINK -->
+                    <input type="submit" value="Log in" name="login" />
+                    <input type="submit" value = "reset_password">Forgot password</input> <!-- LINK -->
                 </form>
             </div>
         </div>
@@ -90,7 +111,8 @@
         </div>
         <div id = "content">
             <!--block and line content here-->
-            <!---forward/backward results here-->\
+            <!---forward/backward results here-->
+            <?php content_function(); ?>
             <h2 id="page_title">Page title</h2>
             <h3 id="sub_heading">Sub heading</h3>
         </div>
