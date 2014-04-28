@@ -1,4 +1,3 @@
-
 PAGE 
 styles : string array
 scripts :string array
@@ -8,10 +7,23 @@ this_page :string
 this_page_title :string
 history :string
 title_history :string
-
+dj_names
+dj_ids
+current_dj_name
+current_dj_id
 
 POST
 back
+add_track
+change_dj_name
+dj_name : string
+reset_password
+lodout
+email : string
+password: string
+login
+add_dj
+
 
 GLOBALS
 base_url : string array
