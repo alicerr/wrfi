@@ -8,10 +8,11 @@ All Shows
 All Djs
 
 DJ:
-Change Password
+User Settings
 Select DJ name (next to dj selection drop down)
 Current DJ name (use get_session("use_dj_name"))
-add set
+Add dj name
+
 
 MANAGER:
 delete show
@@ -26,3 +27,4 @@ You can also use get_last_title() but you should shorten it to 10 charecters if 
 
 
 
+dj_drop_down();

@@ -1,14 +1,39 @@
 Link structure:
+
 all_dj
-all_album
+content_function: load_all_djs()
+
+all_artist
+content_function: load_all_artists()
+
 all_user
+content_function: load_all_users() *only load if aux+
+
 all_show
-schedule
-search
-schedule?audit=1
-set?set_id=#&audit=1
-artist?&artist_id=#
-album&album_id=#
-show&show_name="nospacesnopuncnocaps"
-dj&dj_id=#
-set&set_id=#
+content_function: load_all_shows()
+
+
+search.php?search=""
+content_function: load_search()
+GET: search = "search_text_here"
+GET: type = all/dj/artist/show
+
+schedule.php
+content_function: load_schedule()
+
+set.php?set_id=?
+content_function: load_set()
+GET: set_id 
+
+artist?artist_id=#
+content_function load_artist()
+GET: artist_id
+
+show.php?show_name="show_name"
+GET: show_name
+content_function: load_show()
+
+dj.php?dj_id=#
+GET: dj_id
+content_function: load_dj()
+
