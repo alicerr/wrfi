@@ -16,6 +16,7 @@ content_function: load_all_shows()
 search.php?search=""
 content_function: load_search()
 GET: search = "search_text_here"
+GET: type = all/dj/artist/show
 
 schedule.php
 content_function: load_schedule()
