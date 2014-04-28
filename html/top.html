@@ -24,8 +24,8 @@
     <div id = "left">
         <div id = "listener">
             <!-- buttons to parts of the site (all shows, djs, schedules, etc) -->
-            <a href="" class="button">All shows</a><br>
-            <a href="" class="button">DJs</a><br>
+            <a href="../php/panels/all_shows.php" class="button">All shows</a><br>
+            <a href="../php/panels/all_djs.php" class="button">DJs</a><br>
             <a href="" class="button">Schedule</a><br>
             <!-- <a href="" class="button">Artists</a> -->
 
@@ -54,8 +54,8 @@
                     <!-- <a href="" class="button">Add track</a> LINK TO APPROPRIATE PAGE -->
                     <!-- <a href="" class="button">Add DJ name</a>
                     <a href="" class="button">Change email</a> -->
-                    <a href="" class="button">Change password</a><br>
-                    <a href="" class="button">Add set</a><br>
+                    <a href="../php/panels/password_edit.php" class="button">Change password</a><br>
+                    <a href="../php/panels/set_edit.php" class="button">Add set</a><br>
                     <!-- dropdown to select DJ names for that user -->
                     <select name="dj_name" id="djs_names">
                         <!-- FUNCTION with array of dj's names stored in session -->
@@ -98,30 +98,7 @@
         </div>
         <div id = "editing">
             <!--editing panel to hold various things-->
-            <div id="track_edit_add">
-                
-            </div>
-            <div id="artist_edit">
-               
-            </div>
-            <div id="set_edit">
-                
-            </div>
-            <div id="dj_edit">
-                
-            </div>
-            <div id="user_edit">
-                
-            </div>
-            <div id="show_edit">
-                
-            </div>
-            <div id="user_add">
-                
-            </div>
-            <div id="set_add">
-                
-            </div>
+            <!-- FUNCTION to handle which form to display -->
         </div>
     </div>
     <div id = "right">
@@ -134,7 +111,7 @@
             <!--manager console here-->
             <form id="manager_control" action="" method="post">  <!-- FILL IN ACTION="" -->
                 <a href="" class="button">Audit view</a><br> <!-- LINK TO APPROPRIATE PAGE -->
-                <a href="" class="button">Add show</a><br>
+                <a href="../php/panels/show_edit.php" class="button">Add show</a><br>
                 <a href="" class="button">Delete show</a><br>
                 <a href="" class="button">View all users</a><br>
                 <a href="" class="button">Add user</a><br>
