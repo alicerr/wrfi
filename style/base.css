@@ -58,15 +58,25 @@ h3 {
 	height: 35%;
 
 }
-.button, input{
+ .button, input{
 		display: block;
 	position: relative;
-	width: 100%;
-		color: #111111;
+
+	color: #111111;
 	font-size: 1.1em;
 	border-radius: 2px;
 
 
+}
+a{
+    text-decoration: none;
+    text-align: center;
+}
+input {
+    width: 100%;
+}
+.button {
+    width: 94%;
 }
 .button, input[type="submit"]{
 
@@ -75,9 +85,15 @@ h3 {
 	background-color: #efefef;
 	color: #555555;
 	padding: 3px;
+}
+#middle #editing .hide {
+    display: none;
 
 
-
+}
+#middle #editing .button, #middle #editing input{
+    width: auto;
+    display: inline;
 }
 .button:hover, input[type="submit"]:hover{
 
@@ -95,10 +111,10 @@ h3 {
 	top: 0;
 
 }
-#header{
-	width: 100%;
+#header img{
+	width: 75%;
 	z-index: 1;
-	height: 100px;
+
 	position: relative;
 	background-color: #B1440e;
 
@@ -113,7 +129,8 @@ h3 {
 	position: fixed;
 	z-index: 1;
 	background-color: #f6fced;
-	height: 100px;
+	padding-bottom: 20px;
+	padding-top: 10px;
 	width: 100%;
 	bottom: 0;
 }

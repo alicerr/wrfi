@@ -146,13 +146,13 @@ function load_edit_panel(){
                 set_post("dj_website", $res["dj_website"]);
                 
             }
-            set_post("edit_panel", "php/templetes/edit_dj.php");
+            set_post("edit_panel", "php/panels/dj_edit.php");
         }
         
     }
     elseif (get_post("add_dj"))
     {
-        set_post("edit_panel", "php/templetes/edit_dj.php");  //new dj name
+        set_post("edit_panel", "php/panels/dj_edit.php");  //new dj name
     }
     elseif (get_post("edit_artist")){
         $artist_id = get_post($artist_id);
@@ -163,12 +163,12 @@ function load_edit_panel(){
             artist_id**/
 
         }
-        set_post("edit_panel", "php/templetes/edit_artist.php");
+        set_post("edit_panel", "php/panels/artist_edit.php");
     
     }
     elseif (get_post("edit_user")){
         $user_id = get_session("user_id");
-        if (get_post("user_id") && manager()) $suer_id = get_post("user_id"); //managers can edit other users
+        if (get_post("user_id") && manager()) $user_id = get_post("user_id"); //managers can edit other users
         if ($user_id){
            /**query and set post data for user
             user_id
@@ -177,12 +177,12 @@ function load_edit_panel(){
             user_id
             lname
             fname*/
-        set_post("edit_panel", "php/templetes/edit_user.php");
+        set_post("edit_panel", "php/panels/user_edit.php");
         }
     }
     elseif(get_post("add_user") && manager()){
         //new user
-        set_post("edit_panel", "php/templetes/edit_user.php"); 
+        set_post("edit_panel", "php/panels/user_edit.php"); 
     }
     elseif(get_post("edit_set"))
     {
@@ -195,7 +195,7 @@ function load_edit_panel(){
             set_id
             show_name*/}
         if ($set_id || manager()) //only managers can make new sets
-            set_post("edit_panel", "php/templetes/edit_set.php"); 
+            set_post("edit_panel", "php/panels/set_edit.php"); 
     }
     elseif(get_post("edit_show")){
         $show_id = get_post("show_id");
@@ -207,14 +207,14 @@ function load_edit_panel(){
         }
     }
     elseif (get_post("edit_show_user") && manager()){
-        set_post("edit_panel", "php/templetes/edit_show_user.php"); 
+        set_post("edit_panel", "php/panels/edit_show_user.php"); 
     }
     elseif (get_post("edit_track"))
     {
         $track_id = get_post("track_id");
         $set_id = get_post("set_id");
     
-        if ($track_id && dj() && (aux() || is_show_user($set_id)))
+        if ($track_id && dj() && (aux() || false /*is_user_show*/))
         {
             /*query and load
              *track_name
@@ -239,7 +239,7 @@ function load_edit_panel(){
                 artist_name
                 artist_website*/
         }
-        set_post("edit_panel", "php/templetes/edit_track.php"); 
+        set_post("edit_panel", "php/panels/track_edit.php"); 
     }
     
 }

@@ -1,7 +1,7 @@
 <?php
 
 
-
+//requirements of site
 require_once "php/model/email_functions.php";
 require_once "php/model/get_set_unset_functions.php";
 require_once "php/model/error_message_functions.php";
@@ -20,19 +20,19 @@ require_once "php/view/draw_message.php";
 
 require_once "php/controller/content_load.php";
 require_once "php/controller/load_sub_functions.php";
+require_once "php/controller/search.php";
 
 //make and store my_sqli
 require_once "php/evergreen/config.php";
 $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 
-//look for changes to a user's database entries that eed session information to be reloaded
-update_user_state();
+
 
 //update history stack
 update_history(); 
 
 //login or out if needed
-login_logout();
+update_user_state();
 
 //look for editing commits
 check_for_edits();

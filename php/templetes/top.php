@@ -9,10 +9,10 @@ require_once "php/controller/initial_load.php";
     <meta charset="utf-8">
     <title><?php echo($pageTitle); ?></title>
     <link href="style/base.css" rel="stylesheet">
-    <script src="script/base.js"></script>
+    <!--<script src="script/base.js"></script>-->
     <?php 
-        inc_style($styles); //load any page spec styles
-        inc_script($scripts); //load any page spec scripts
+        //inc_style($styles); //load any page spec styles
+        //inc_script($scripts); //load any page spec scripts
         setCSS(); //user state specific css
 
     ?>
@@ -32,16 +32,12 @@ require_once "php/controller/initial_load.php";
                     <option value="artist">Artists</option>
                     <option value="show">Shows</option>
                 </select>
-                <input type="submit" value="Search" name="search_button" />
+                <input type="submit" value="Search" name="submit_search" />
 
             </form>
-            <!-- buttons to parts of the site (all shows, djs, schedules, etc) -->
-            <a href="all_show.php" class="button">All shows</a>
-            <a href="all_dj.php" class="button">DJs</a>
-            <a href="schedule.php" class="button">Schedule</a>
+
             <!-- <a href="" class="button">Artists</a> -->
-            <!--back button here-->
-            <a href="<?php get_last_url(); ?>" class="button">Back</a>
+
 
         </div>
         <div id = "dj">
@@ -73,6 +69,8 @@ require_once "php/controller/initial_load.php";
                 <form method = "post">
                 <!-- dropdown to select DJ names for that user -->
                     <select name="dj_id">
+                        <option value = "1">a dj name</option>
+                        <option value = "2">a different dj name</option>
                         <?php
                         //drop menu of users dj names
                             $dj_names = get_session("dj_names");
@@ -135,6 +133,10 @@ require_once "php/controller/initial_load.php";
 		Streaming content here
             <!--test for js?-->
             <a href="<?php get_last_url(); ?>" class="button">Back</a>
+            <!-- buttons to parts of the site (all shows, djs, schedules, etc) -->
+            <a href="all_show.php" class="button">All shows</a>
+            <a href="all_dj.php" class="button">DJs</a>
+            <a href="schedule.php" class="button">Schedule</a>
         </div>
         <div id = "manager" class = "manager">
             <!--manager console here-->
@@ -147,11 +149,11 @@ require_once "php/controller/initial_load.php";
             <form method = "post" >
                 <input type= "submit" value = "Add user" name = "add_user" />
             </form>
-            <a href="all_user.php" class="button">View all users</a>          
+                    
             <form method = "post">
-                <input type= "submit" value = "Add/Rem User-Show" name = "edit_show_user" />
+                <input type= "submit" value = "User-Show" name = "edit_show_user" />
             </form>
-             
+             <a href="all_user.php" class="button">View all users</a>  
                 
    
         </div>

@@ -103,10 +103,7 @@ function load_all_djs(){
     }
 }
 
-function load_search()
-{
-    //
-}
+
 
 function load_set(){
     global $mysqli;
@@ -161,6 +158,7 @@ function load_artist()
         //set <--No description, or id, just "set" with link to set.php?set_id=$set_id
         //dj <--link dj.php?dj_id=$dj_id
         //duration
+        $show_name = "";
         if (aux() || is_show_user($show_name))
         {
         //form w/ start hiddin and name = "edit_track"
@@ -232,7 +230,7 @@ function load_show()
     //BLOCK:
     //show_name (h1)<--link to show website
     //show_desc 
-    if (manager() || is_show_user(get_get("show_name")))
+    if (manager() || false /*is_user_show*/)
     {
         //form w/ show_name hiddin and name = "edit_show"
     }
@@ -243,7 +241,7 @@ function load_show()
         //set_end
         //set_desc
         //link <--not set_link rather set.php?set_id=$set_id
-        if (aux() || is_show_user($show_name))
+        if (aux() || false /*is_user_show*/)
         {
         //form w/ start hiddin and name = "edit_show"
         }

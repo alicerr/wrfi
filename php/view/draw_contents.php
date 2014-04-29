@@ -1,105 +1,56 @@
 <?php
-    function draw_cell($class_array, $guts){
+//functions for drawing contents
+//draw_line($cell_string_array),
+//draw_cell($string, $class_array),
+//make_link($string, $link)
+//make_tiny_form($submit_name, $submit_value, $hide_name, $hide_value)
+//make_block($title, $sub_heading, $text)
+//draw_heading($heading_cell_string_array)
+//draw_heading_cell($contents, $class_array())
+    
+    //return a table line from a cell aray
+    function draw_line($cell_strng_array){
+        return '<div class = "line" >'.implode(" ",$cell_strng_array).'</div>';
+    }
+    //return a cell with 1+ classes  from class array, holding guts
+    function draw_cell( $guts, $class_array){
+        return "<div class = \"cell ".implode(" ", $class_array)." >$guts</div>";
+    }
+    
+    //return a heading cell, with classes 
+    function draw_heading_cell($guts, $class_array){
         echo("<div class = \"cell ".implode(" ", $class_array)." >$guts</div>");
     }
-    function draw_heading_cell($class_array, $guts){
-        echo("<div class = \"cell ".implode(" ", $class_array)." >$guts</div>");
-    }
+    //return a linked content, if $link is not null, else return just text content
     function make_link($content, $link){
         if ($link) return "<a href=\"http://www.$link\">$content</a>";
         else return $content;
     }
+    
     function show_access($show_name){
         $shows = get_session("user_shows");
         return aux() || ($shows && in_array($show_name, $user_shows));}
 
+//will be used to produce safe links
     function generate_link($base, $type, $id){
         return urlencode("$base?$type=$id");
     }
-    //arrays
-    //names
-    //view level
+    //returns a single button form with a hidden id value
+function  make_tiny_form($submit_name, $submit_value, $hide_name, $hide_value){
+        return'<form method="post"><input type="text" name="'.$hide_name.'" value="'.$hide_value.'" class = "hide" required />
+        <input type = "submit" name = "'.$submit_name.'" value="'.$submit_value.'" /></form>';
+    }
     
-    //edit level
-    //is show releated
-    //is set
-    
-    
-    function draw_edit_form($type, $id){
-        
-            return "<form action = \"".get_global('base_url')."\" method = \"post\">
+//returns a block formated display with up to three sections
+function make_block($title, $sub_heading, $text){
+    //todo
+}
+function draw_heading($heading_cell_string_array){
+    return '<div class = "head line" >'.implode(" ",$heading_cell_string_array).'</div>';
+}
 
-                        <type = \"input\" class = \"hide\" name = \"$type_id\" value = \"".$item[$item_id_feild]."\" />
-                        <type = \"input\" class = \"hide\" name = \"$type\" value = \"".$type."\" />
-                        <type=\"Submit\" class = \"edit_button\" name = \"edit\" value = \"edit\">
-                        </form>";
-
-        
-    }
-    function draw_delete_form( $type, $id){
-
-            return "<form action = \"".get_global('base_url')."\" method = \"post\">
-
-                        <type = \"input\" class = \"hide\" name = \"$type_id\" value = \"".$id."\" />
-                        <type = \"input\" class = \"hide\" name = \"$type\" value = \"".$type."\" />
-                        <type=\"Submit\" class = \"delete_button\" name = \"delete\" value = \"delete\">
-                        </form>";
-    
-        
-    }
-    function draw_block($title, $description, $link, $type, $id)
-    {
-        
-        echo("<h1>".make_link($title, $link)."</h1>
-             <p>$description</p>");
-        if (($type == "dj" && in_dj_ids($dj)) ||
-            ($type == "artist" && dj()) ||
-            ($type == "show" && (aux() || is_show_user($id))) ||
-            ($type == "set" && (aux() || is_set_user($id))))
-        draw_edit_form($type,  $id);
-        
-    }
-    function remove_dot($string){
-        if (strpos($string, ".") >=0)
-            return substr($string, strpos($string, "."));
-        else
-            return $string;
-    }
-    function draw_lines($results, $names, $edit_level, $is_track_played, $is_set, $id_feild, $type, $visable){
-  /**      $user_level = get_session('user_level');
-        echo("<div class = \"heading\">");
-        for ($i = 0; $i < count($names); $i++){
-            $visable[$i] = $visible[$i] - $user_level;
-            if ($visible[$i] <= 0)
-            {
-                draw_heading_cell($names[$i]);
-            }
-        }
-        echo("</div>");
-        echo ("<div class = \"table\">");
-        foreach($results  as $result){
-            echo("<div class = \"line\">");
-            for ($i = 0; $i < count($result); $i++){
-                if ($visible[$i] <= 0)
-                {
-                    draw_cell($result[$i]);
-                }
-            }
-            if ($is_track_played && is_show_user($result['show.show_name'])){
-                draw_cell(draw_edit_form("track_played", $result["start"]));
-                draw_cell(draw_delete_form("track_played", $result["start"]));
-                
-                & manager()){
-                draw_cell(draw_edit_form("set", $result["set_id"]));
-                draw_cell(draw_delete_form("set", $result["set_id"]));
-            }
-            
-            echo("</div>");
-        }
-        
-        echo ("</div>");**/
-    }
-      
+ 
+  
             
     
 ?>

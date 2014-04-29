@@ -48,7 +48,7 @@
         return $cleaned_arg;
     }
     function get_global($name){
-                if (isset($GLOBALS[$name])) return clean($_GLOBAL[$name]); else return null;
+                if (isset($GLOBALS[$name])) return clean($GLOBALS[$name]); else return null;
     }
     function unset_global($name){
                 unset($GLOBALS[$name]);
@@ -80,4 +80,10 @@
     function aux(){ return get_session("user_level") && get_session("user_level") > 1;}
     function manager(){ return get_session("user_level") && get_session("user_level") > 2;}
     function dj(){ return get_session("user_level") && get_session("user_level") > 0;}
+    //is show of user
+    function is_show_user($show_name){
+        $shows = get_session("user_shows");
+            return $shows && in_array($show_name, $shows);
+    }
+    
 ?>

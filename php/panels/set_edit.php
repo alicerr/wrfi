@@ -1,4 +1,4 @@
-
+<!--show edit/add-->
 	<form method="post">
 	<?php
 	$show_name = get_post($show_name);

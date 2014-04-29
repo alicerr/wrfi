@@ -31,7 +31,7 @@
         //and level
         //store user id in session var user_id
         //level in user_level
-        //
+        //IF LEVEL IS 0 DO NOT ALOW USER TO LOGIN
         
     }
     
@@ -44,7 +44,7 @@
         //gather from database:
         //dj_names : array
         //dj_ids : array
-
+        //user_shows
         
         //chose:
         //current_dj_name
