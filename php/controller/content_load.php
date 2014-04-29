@@ -117,6 +117,9 @@ function load_set(){
     if (aux() || is_show_user($show_name))
     {
         //form w/ set_id hiddin and name = "edit_set"
+        if (manager()){
+        //form w/ set_id hiddin and name = "delete_set"
+        }
     }
     
     //LINE:
@@ -131,6 +134,7 @@ function load_set(){
         if (aux() || is_show_user($show_name))
         {
         //form w/ start hiddin and name = "edit_track"
+        //form w/ start hiddin and name = "delete_track"
         }
 }
 
@@ -142,7 +146,8 @@ function load_artist()
     //artist_desc
     if (dj())
     {
-        //form w/ set_id hiddin and name = "edit_set"
+        //form w/ set_id hiddin and name = "edit_artist"
+        
     }
     
     //LINE:
@@ -211,6 +216,7 @@ function load_schedule()
         if (manager())
         {
              //form w/ set_id hiddin and name = "edit_set"
+            //form w/ set_id hiddin and name = "delete_set"
         }
         
     //load schedule for next 7 days

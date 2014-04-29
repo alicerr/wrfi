@@ -1,9 +1,10 @@
 <?php
+    //this page records pages the user visted, to help site nav
 
     //updates history keeping functions
     //ACCESSES: SESSION: 'this_page', 'this_page_title', 'history', 'title_history'
     //            GLOBALS: 'base_url', 'page_title'
-    //Modifies: SESSION: 'this_page', 'this_page_title', 'history', 'title_history'
+    //Modifies: SESSION: 'this_page', 'this_page_title', 'history', 'title_history' (title history is not in use yet)
     function update_history(){
         $last_page = get_session('this_page');
         $last_page_title = get_session('this_page_title');

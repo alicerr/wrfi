@@ -1,15 +1,25 @@
 <?php
+
+//takes a feild,  min length, max length, feild name, and nullity (is feild allowed to be null)
+//returns a cleaned string if cleaned (possibly shrtened) string meets min and max
+//warns user if they violate criteria
+//by calling the pervassive print_error_message (see view files)
+//min deafalts to 1 if null, max to 255
+//will shorten strings
 function valid_f($feild, $min, $max, $feild_name, $null_allowed){
     $fc = clean($feild);
-    if (!$fc && !$min && !$null_allowed)
-        print_error_message("$feild_name must have at least one charecter");
-    elseif ($min &&( (!$fc && !$null_allowed) || ($fc && strlen($fc) < $min)) )
+    if (!$max) $max = 255;
+    if (!$min) $min = 1;
+    if ((!$fc && !$null_allowed) || ($fc && strlen($fc) < $min))//string length below min, but present, or null not allowed
          print_error_message("$feild_name must have at least $min charecter(s)");
-    elseif ($fc && $max < strlen($fc))
-        print_error_message("$feild_name must have at most $max charecters");
-    elseif ($fc && !$max && 255 < strlen($fc))
-        print_error_message("$feild_name must have at most 255 charecters");   
+    elseif ($fc && $max < strlen($fc)){ //max exceeded
+        
+        $fc = substr($fc, $max);
+        print_error_message("$feild_name must have at most $max charecters, I had to shorten it to: $fc");
+    }
+    return $fc;
 }
+//strips anything before and including www. from a string
 function website_f($string){
     if (strpos($string, "www.") >= 0)
     {
@@ -17,6 +27,12 @@ function website_f($string){
     }
     return $string;
 }
+//tries to find label w/ same name to update
+//if none adds new label
+//does not overwrite content feilds with null feilds
+//informs user of issues
+//validates feilds
+//returns label_name if successful, null if not
 function add_label($label_name, $label_website)
 {
     $label_name = valid_f($label_name, null, null, "label name", false );
@@ -35,7 +51,15 @@ function add_label($label_name, $label_website)
     return $changed;
             
 }
+//returns string : ", $feild='$string' " if $string is not null
+//else null. Used to not overwrite nin null feilds
 function update_if_set($string, $feild){ if ($string) return " , $feild = '$string' "; else return $string;}
+
+//adds or updates artist, dependent on artist_id (if id == 0 then adds )
+//does not overwrite content feilds with null feilds
+//informs user of issues
+//validates feilds
+//returns artist_id if successful, null if not
 function add_artist($artist_id, $artist_name, $artist_desc, $artist_website){
     $artist_name = valid_f($artist_name, null, null, false);
     $artist_desc = valid_f($artist_desc, null, null, true);
@@ -57,7 +81,12 @@ function add_artist($artist_id, $artist_name, $artist_desc, $artist_website){
     return $changed;
     }
 
-    
+//adds or updates album, dependent on album_id (if id == 0 then adds )
+//adds label if feilds provided
+//does not overwrite content feilds with null feilds
+//informs user of issues
+//validates feilds
+//returns album_id if successful, null if not
 function add_album($album_id, $album_name, $album_website, $label_name, $label_website){
     $album_name = valid_f($album_name, null, null, false);
     $album_website = valid_f(website_f($album_website), null, null, false);
@@ -76,8 +105,15 @@ function add_album($album_id, $album_name, $album_website, $label_name, $label_w
     return $changed;
     
 }
+//updates user
+//DOES overwrite content feilds with null feilds
+//informs user of issues
+//validates feilds
+//returns user_id if successful, null if not
+//will only query session for user_id unless manager
 function update_user( $email, $fname, $lname, $phone, $new_password, $confirm_password, $old_password){
     $user_id = get_session($user_id);
+    if (manager() && get_post("user_id")) $user_id = get_post("user_id");
     $email = valid_email($email);
     $fname = valid_f($fname, 1, 50, "first name", false);
     $lname = valid_f($lname, 1, 50, "last name", true);
@@ -99,6 +135,11 @@ function update_user( $email, $fname, $lname, $phone, $new_password, $confirm_pa
     }
     return $changed;
 }
+//adds user, manager level
+//does not overwrite content feilds with null feilds
+//informs user of issues
+//validates feilds
+//returns artist_id if successful, null if not
 function insert_user( $email, $fname, $lname, $phone, $dj_name){
  $email = validate_email($email);
     $fname = valid_f($fname, 1, 50, "first name", false);
@@ -121,6 +162,12 @@ function insert_user( $email, $fname, $lname, $phone, $dj_name){
     return $changed;
     
 }
+//adds or updates dj_name, dependent on dj_id (if id == 0 then adds )
+//does not overwrite content feilds with null feilds
+//informs user of issues
+//validates feilds
+//returns dj_id if successful, null if not
+//user_id comes from session, or user has manager status
 function add_dj($dj_id, $dj_name, $user_id, $dj_desc, $dj_website){
     $dj_name = valid_f($djname, null, null, "dj name", false);
     $dj_desc = valid_f($dj_desc, null, null, "dj description", true);
@@ -137,6 +184,11 @@ function add_dj($dj_id, $dj_name, $user_id, $dj_desc, $dj_website){
         $changed = last_id();
     return $changed;
 }
+//adds or updates show, dependent on artist_id (if id == 0 and manager then adds )
+//does not overwrite content feilds with null feilds
+//informs user of issues
+//validates feilds
+//returns show_name if successful, null if not
 function add_show($show_name, $show_desc, $show_website){
     $show_name = valid_f($show_name, null, null, "show name", false);
     $show_desc = valid_f($show_desc, null, null, "show description", true);
@@ -156,6 +208,11 @@ function add_show($show_name, $show_desc, $show_website){
     
     return $changed;
 }
+//adds show_user affiliation
+//does not overwrite content feilds with null feilds
+//informs user of issues and success
+//validates feilds
+//returns artist_id if successful, null if not
 function add_show_user($show_name, $email){
     /**$changed = $false;
     $exists = query("SELECT * FROM show_user WHERE user_id = $user_id AND show_name = '$show_name'");
@@ -171,11 +228,18 @@ function add_show_user($show_name, $email){
         $changed = [$user_id, $show_name];
    return $changed;**/
 }
-
-
+//track entry
+//adds/updates label if content provided
+//then album
+//then artist
+//then track
+//does not overwrite content feilds with null feilds
+//informs user of issues and success
+//validates feilds
+//returns track_id if successful, null if not
 function add_track($track_id, $track_name, $artist_id, $artist_name, $album_id, $album_name, $label_name, $label_website, $album_id, $album_name, $album_website, $artist_id, $artist_name, $artist_website, $artist_desc)
 {
-    //label
+   
     
     if ($album_name) $album_id =  add_album($album_id, $album_name, $album_website, $label_name, $label_website);
     warn($label_name && !$album_name, "labels are only recorded for albums, but an album can be a single track, if it was released as such");
@@ -194,7 +258,16 @@ function add_track($track_id, $track_name, $artist_id, $artist_name, $album_id, 
     $changed = last_id();
     
 }
-
+//track_played entry
+//adds/updates label if content provided
+//then album
+//then artist
+//then track
+//then track_played
+//does not overwrite content feilds with null feilds
+//informs user of issues and success
+//validates feilds
+//returns start if successful, null if not
 function add_track_played($edit_start, $add, $start, $duration, $set_id, $track_id, $track_name, $artist_id, $artist_name, $album_id, $album_name, $label_name, $label_website, $album_id, $album_name, $album_website, $artist_id, $artist_name, $artist_website, $artist_desc){
     $set_id = can_edit_at_time($start);
     $dj_id = get_session('current_dj_id');
@@ -207,6 +280,9 @@ function add_track_played($edit_start, $add, $start, $duration, $set_id, $track_
     return $changed;
     
 }
+//adds a set
+//manager level
+//returns set_id if success
 function add_set( $set_id, $set_start, $set_end, $show_name, $set_desc, $set_link){
     $changed = false;
     $show_name = valid_f($show_name, null, null, "show name", false);
@@ -233,11 +309,14 @@ function add_set( $set_id, $set_start, $set_end, $show_name, $set_desc, $set_lin
            
 
 }
-
+//deletes a set
+//returns true if sucess
 function delete_set($set_id)
 {
     return manager_query("Delete * FROM set WHERE set_id = $set_id");
 }
+//deletes a track played
+//retrurns start is success
 function delete_track_played($start){
     /**$changed = false;
     if (can_edit_at_time($start) && feedback_op(query("DELETE from track_played WHERE start = start", $suppress_warnings), "track removed from $start", "track not removed from $start"))
@@ -246,7 +325,8 @@ function delete_track_played($start){
 }
 
 
-
+//returns results with the same label name
+//used in add_label
 function get_label($label_name)
 {
     

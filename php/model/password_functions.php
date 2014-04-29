@@ -14,13 +14,14 @@ function randomPassword() {
     }
     return implode($pass); //turn the array into a string
 }
-//not to use, just might need the stuff in it
+//checks a password against a hashed password with salt "yadayadayada"
+//returns level_id for user if succesful, false if no match
 function check_password($password){
         global $mysqli;
         $good = false;
         $name = user_name();
         if ($name){
-            $query = "SELECT * FROM user WHERE user_email = \"$name\"";
+            $query = "SELECT * FROM user WHERE email = \"$name\"";
             $user_entry = $mysqli->query($query);
 
             if ($user_entry)
@@ -31,6 +32,7 @@ function check_password($password){
                     $password = hash('sha256', $password . "yadayadayada");
 
                     $good = ($user_entry['user_password'] == $password);
+                    if ($good) $good = $user_entry["level_id"];
                 }
             }
         }
