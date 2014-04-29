@@ -25,8 +25,8 @@ require_once "php/controller/initial_load.php";
 
             <!--search bar here-->
             <form id="search_form" action="search.php" method="get"> <!-- FILL IN ACTION="" -->
-                Keyword: <input type="text" size="50" name="keyword" id="search_key" />
-                Search by: <select name="criteria" id="search_criteria">
+                <input type="text" name="search" />
+                Search by: <select name="type" >
                     <option value="all">All</option>
                     <option value="dj">DJs and hosts</option>
                     <option value="artist">Artists</option>
@@ -36,9 +36,9 @@ require_once "php/controller/initial_load.php";
 
             </form>
             <!-- buttons to parts of the site (all shows, djs, schedules, etc) -->
-            <a href="php/panels/all_show.php" class="button">All shows</a><br>
-            <a href="php/panels/all_dj.php" class="button">DJs</a><br>
-            <a href="" class="button">Schedule</a><br>
+            <a href="all_show.php" class="button">All shows</a>
+            <a href="all_dj.php" class="button">DJs</a>
+            <a href="schedule.php" class="button">Schedule</a>
             <!-- <a href="" class="button">Artists</a> -->
             <!--back button here-->
             <a href="<?php get_last_url(); ?>" class="button">Back</a>
@@ -60,26 +60,27 @@ require_once "php/controller/initial_load.php";
                 </h3>
      
                 <form method = "post">
-                    <input type = "submit" name="add_track" value="Add track" />
+                    <input type = "submit" name="edit_track" value="Add track" />
                 </form>
                 <!-- <a href="" class="button">Add DJ name</a>
                 <a href="" class="button">Change email</a> -->
-                <form method = "post">
-                    <input type = "submit" name = "user_settings" value="User settings" />
+                <form method = "post"><!--edit user details-->
+                    <input type = "submit" name = "edit_user" value="User settings" />
                 </form>
-                <form method = "post">
+                <form method = "post"><!--add dj name-->
                     <input type = "submit" name = "add_dj" value="Add DJ" />
                 </form>
                 <form method = "post">
                 <!-- dropdown to select DJ names for that user -->
                     <select name="dj_id">
                         <?php
+                        //drop menu of users dj names
                             $dj_names = get_session("dj_names");
                             $dj_ids = get_session("dj_ids");
                             for ($i = 0; $i < count($dj_names); $i++)
                                 echo("<option value =\"".$dj_ids[$i]."\">".$dj_names[$i]."</option>");
                          ?>
-                        <!-- FUNCTION with array of dj's names stored in session -->
+                        
                     </select>
                     <input type="submit" name="change_dj_name" value="Select DJ name" />
                 </form>
@@ -91,8 +92,8 @@ require_once "php/controller/initial_load.php";
             <div id = "logged_out_dj" class = "out">
                 <!--logged out form here-->
                 <form  method="post"> 
-                    Email: <input type="email" name="user" id="email" required /><br>
-                    Password: <input type="password" name="password" id="pass" /><br>
+                    Email: <input type="email" name="user" required />
+                    Password: <input type="password" name="password" />
                     <input type="submit" value="Log in" name="login" />
                     <input type="submit" name = "reset_password" value="Forgot password" /> <!-- LINK -->
                 </form>
@@ -106,21 +107,26 @@ require_once "php/controller/initial_load.php";
         </div>
         <div id = "message">
             <!--messages to user drawn here-->
-		user messages will be displayed here
+		event (error/success) messages will be displayed here
             <?php draw_message(); ?>
              <div id = "jsmessage"></div>
         </div>
         <div id = "content">
             <!--block and line content here-->
             <!---forward/backward results here-->
-	Tables and block content go here
-            <?php content_function(); ?>
+            Tables and block content go here
+            
+            <?php content_function(); //calls gen. content function for each page ?>
             <h2 id="page_title">Page title</h2>
             <h3 id="sub_heading">Sub heading</h3>
         </div>
         <div id = "editing">
             <!--editing panel to hold various things-->
-            <!-- FUNCTION to handle which form to display -->
+            
+            <?php $edit_panel = get_post("edit_panel");
+                    if($edit_panel) require_once $edit_panel;
+                //this is set during the page load by load_edit_panel();
+            ?>
         </div>
     </div>
     <div id = "right">
@@ -133,18 +139,19 @@ require_once "php/controller/initial_load.php";
         <div id = "manager" class = "manager">
             <!--manager console here-->
             <form method = "post" action = "schedule.php">
-                <input type= "submit" value = "Add set" name = "add set">
+                <input type= "submit" value = "Add set" name = "edit_set">
             </form>
             <form method = "post" >
-                <input type= "submit" value = "add show" name = "add_show"></input>
+                <input type= "submit" value = "Add show" name = "edit_show" />
             </form>
-                <a href="all_user.php" class="button">View all users</a>          
-            <form method = "post">
-                <input type= "submit" value = "Add user to show" name = "add_user_show"></input>
+            <form method = "post" >
+                <input type= "submit" value = "Add user" name = "add_user" />
             </form>
+            <a href="all_user.php" class="button">View all users</a>          
             <form method = "post">
-                <input type= "submit" value = "Remove user from show" name = "remove_user_show"></input>
-            </form>              
+                <input type= "submit" value = "Add/Rem User-Show" name = "edit_show_user" />
+            </form>
+             
                 
    
         </div>

@@ -1,7 +1,7 @@
 <!--form for editing an artist's content-->
 <form method="post">
 	Artist name: <input type="text" name="artist_name"
-	value = "<?php echo(get_post("artist_name")); ?>"/>
+	value = "<?php echo(get_post("artist_name")); ?>" />
 	Artist description: <textarea name="artist_desc">
 		<?php echo(get_post("artist_desc")); ?>
 	</textarea><br>
