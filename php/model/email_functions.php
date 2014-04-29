@@ -7,8 +7,8 @@ function email($subject, $contents, $address, $user_name)
     {
     $to = $address;
     $subject = $subject;
-    $body = "Dear User, \n $contents \n \n Sincerely, \n The project 3 site robot \n\n at: " . get_time();
-    $headers = 'From: the Art Album Project arr233@cornell.edu' . "\r\n";
+    $body = "Dear User, \n $contents \n \n Sincerely, \n The project 5 site robot \n\n at: " . get_time();
+    $headers = 'WRFI radio someone@wrfi.org' . "\r\n";
     $headers.= 'Reply-To: ' . $to . "\r\n";
     $headers.= 'X-Mailer: PHP/' . phpversion();
     $headers.= "MIME-Version: 1.0\r\n";
