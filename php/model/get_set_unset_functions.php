@@ -3,6 +3,7 @@
     //INPUT: none
     //VISIBLE ACTION: none
     //OUTPUT: cleaned string (may be null)
+
     function clean($string)
     {
         $string = strip_tags($string);
@@ -55,4 +56,7 @@
     function unset_get(){
                 unset($_GET[$name]);
     }
+    function aux(){ return get_session("user_level") && get_session("user_level") > 1;}
+    function manager(){ return get_session("user_level") && get_session("user_level") > 2;}
+    function dj(){ return get_session("user_level") && get_session("user_level") > 0;}
 ?>

@@ -157,7 +157,7 @@ function add_show($show_name, $show_desc, $show_website){
     return $changed;
 }
 function add_show_user($show_name, $email){
-    $changed = $false;
+    /**$changed = $false;
     $exists = query("SELECT * FROM show_user WHERE user_id = $user_id AND show_name = '$show_name'");
     $user = get_user_by_email($email);
     $user_id = 0;
@@ -169,7 +169,7 @@ function add_show_user($show_name, $email){
                    "$user affiliated with $show_name",
                    "$user not affiliated with show"))                  
         $changed = [$user_id, $show_name];
-   return $changed;
+   return $changed;**/
 }
 
 
@@ -239,10 +239,10 @@ function delete_set($set_id)
     return manager_query("Delete * FROM set WHERE set_id = $set_id");
 }
 function delete_track_played($start){
-    $changed = false;
+    /**$changed = false;
     if (can_edit_at_time($start) && feedback_op(query("DELETE from track_played WHERE start = start", $suppress_warnings), "track removed from $start", "track not removed from $start"))
         $changed = $start;
-    return $changed 
+    return $changed **/
 }
 
 

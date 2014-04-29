@@ -1,5 +1,5 @@
 <?php
-start_session();
+session_start();
 //this pages title
 $pageTitle = "All Artists";
 //this pages url

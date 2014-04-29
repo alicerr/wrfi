@@ -1,5 +1,5 @@
 <?php
-start_session();
+session_start();
 $pageTitle = "All DJs";
 $GLOBALS['base_url'] = "all_dj.php";
 $styles = array();

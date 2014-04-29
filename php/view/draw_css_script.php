@@ -6,7 +6,7 @@
 function setCSS()
     {
     echo ("<style>");
-    if (!logged_in()){}
+    if (get_session("current_dj_name")){}
     else{
 
         if (aux()) {

@@ -1,5 +1,5 @@
 <?php
-start_session();
+session_start();
 require "php/model/get_set_unset_functions.php";
 //this pages title
 $pageTitle = "Show";

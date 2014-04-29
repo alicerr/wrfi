@@ -137,7 +137,7 @@ function search_all($criteria){
     $table_structure = "  FROM track LEFT OUTER JOIN album ON track.album_id = album.album_id LEFT OUTER JOIN label ON album.label_name label.label_name ";
     $sort_crit = " ORDER BY track.track_name";
 }
-function search_all_shows{
+function search_all_shows(){}
     
     
 

@@ -1,5 +1,5 @@
 <?php
-start_session();
+session_start();
 //this pages title
 $pageTitle = "Schedule";
 //this pages url

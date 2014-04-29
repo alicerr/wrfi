@@ -66,7 +66,7 @@
             return $string;
     }
     function draw_lines($results, $names, $edit_level, $is_track_played, $is_set, $id_feild, $type, $visable){
-        $user_level = get_session('user_level');
+  /**      $user_level = get_session('user_level');
         echo("<div class = \"heading\">");
         for ($i = 0; $i < count($names); $i++){
             $visable[$i] = $visible[$i] - $user_level;
@@ -88,8 +88,8 @@
             if ($is_track_played && is_show_user($result['show.show_name'])){
                 draw_cell(draw_edit_form("track_played", $result["start"]));
                 draw_cell(draw_delete_form("track_played", $result["start"]));
-            }
-            if ($is_set && manager()){
+                
+                & manager()){
                 draw_cell(draw_edit_form("set", $result["set_id"]));
                 draw_cell(draw_delete_form("set", $result["set_id"]));
             }
@@ -97,7 +97,7 @@
             echo("</div>");
         }
         
-        echo ("</div>");
+        echo ("</div>");**/
     }
       
             
