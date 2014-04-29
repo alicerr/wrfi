@@ -13,7 +13,7 @@ all_show
 content_function: load_all_shows()
 
 
-search.php?search=""
+search.php?search=""&amp;type=""
 content_function: load_search()
 GET: search = "search_text_here"
 GET: type = all/dj/artist/show
