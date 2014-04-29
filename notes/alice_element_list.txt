@@ -11,6 +11,7 @@ dj_names
 dj_ids
 current_dj_name
 current_dj_id
+user_level
 
 POST
 back
