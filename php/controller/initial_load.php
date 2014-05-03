@@ -25,9 +25,8 @@ require_once "php/controller/search.php";
 //make and store my_sqli
 require_once "php/evergreen/config.php";
 $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
-print_message($mysqli::stat());
-
-
+if ($mysqli->connect_error){print_message("Database connection Error");}
+else {print_message("Database connected"); }
 //update history stack
 update_history(); 
 

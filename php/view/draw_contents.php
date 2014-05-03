@@ -9,21 +9,32 @@
 //draw_heading_cell($contents, $class_array())
     
     //return a table line from a cell aray
-    function draw_line($cell_strng_array){
-        return '<div class = "line" >'.implode(" ",$cell_strng_array).'</div>';
+    function line($cell_strng_array){
+        return "<div class = \"line bline\" >\n\t\t".implode($cell_strng_array, " \n\t\t")."\n\t</div>";
+    }
+    //return a table line from a cell aray
+    function hline($cell_strng_array){
+        return "<div class = \"hline line\" >\n\t\t".(implode($cell_strng_array, " \n\t\t"))."\n\t</div>";
     }
     //return a cell with 1+ classes  from class array, holding guts
-    function draw_cell( $guts, $class_array){
-        return "<div class = \"cell ".implode(" ", $class_array)." >$guts</div>";
+    function cell( $guts, $class){
+        return "\n<div class = \"cell bcell $class\" >\n\t$guts\n</div>";
     }
     
     //return a heading cell, with classes 
-    function draw_heading_cell($guts, $class_array){
-        echo("<div class = \"cell ".implode(" ", $class_array)." >$guts</div>");
+    function hcell($guts, $class){
+        echo("\n<div class = \"hcell cell $class\" >\n\t$guts\n</div>");
     }
     //return a linked content, if $link is not null, else return just text content
-    function make_link($content, $link){
-        if ($link) return "<a href=\"http://www.$link\">$content</a>";
+    function world_link($content, $link){
+
+        if ($link) return "\n<a href=\"http://$link\">\n\t$content\n</a>";
+        else return $content;
+    }
+    
+    function local_link($content, $link){
+        
+        if ($link) return "\n<a href=\"$link\">\n\t$content\n</a>";
         else return $content;
     }
     
@@ -32,23 +43,35 @@
         return aux() || ($shows && in_array($show_name, $user_shows));}
 
 //will be used to produce safe links
-    function generate_link($base, $type, $id){
-        return urlencode("$base?$type=$id");
+    function get_link($base, $type, $id){
+        if (!$base && $type && $id)
+            {
+            $base = get_global("base_url");
+            return "$base?$type=".urlencode($id);
+            }
+        else
+            return "";
     }
     //returns a single button form with a hidden id value
-function  make_tiny_form($submit_name, $submit_value, $hide_name, $hide_value){
-        return'<form method="post"><input type="text" name="'.$hide_name.'" value="'.$hide_value.'" class = "hide" required />
-        <input type = "submit" name = "'.$submit_name.'" value="'.$submit_value.'" /></form>';
+function  tiny_form($submit_name, $submit_value, $hide_name, $hide_value){
+        return"\n<form method=\"post\">\n\t<input type=\"text\" name=\"".$hide_name."\" value=\"".$hide_value."\" class = \"hide\" required />\n\t
+        <input type = \"submit\" name = \"".$submit_name."\" value=\"".$submit_value."\" />\n</form>";
     }
-    
+//returns an email link
+function email_link($email, $name){
+    if (!$name) $name = "Someone";
+    if ($email) return "\n<a href=\"mailto:".wrfiVolunteerb."@$email\" > \n\t$email \n</a>";
+    else return "not listed";
+}
 //returns a block formated display with up to three sections
 function make_block($title, $sub_heading, $text){
-    //todo
-}
-function draw_heading($heading_cell_string_array){
-    return '<div class = "head line" >'.implode(" ",$heading_cell_string_array).'</div>';
+    return("\n<h1 class = \"title\" >\n\t$title\n</h1>\n<h2 class= \"subheading\">\n\t$sub_heading\n</h2>\n<p class =\"blocktext\">\n\t$blocktext\n</p>");
 }
 
+function nullweb($website){
+    if ($website) return world_link("Website", $website);
+    else return "not listed";
+}
  
   
             

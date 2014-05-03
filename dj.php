@@ -13,5 +13,5 @@ $scripts = array();
 
 function content_function(){ load_dj(); }
 //load html
-require "php/templetes/top.php";print_error_message("testing");
+require "php/templetes/top.php";
 ?>

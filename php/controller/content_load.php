@@ -18,74 +18,152 @@
 
 //each of this functions is called by a single page, and corelates to that pages content
 
+
+//print all shows
 function load_all_shows()
 {
     global $mysqli;
-    
+    print_message("show name");
     //feilds:
-    //show_name <- create link show.php?show_name=$show_name
-    //remember to run link through url converter, many show names will have whitespace
+    $query = "SELECT * FROM shows ORDER BY show_name";
+    $results = $mysqli->query($query);
     
+    //print header
+    
+    echo(          hline(array(hcell("Show Name","show_name"),
+                    hcell("Description", "show_desc"),
+                    hcell("Website", "show_website"))));
+    while ($r = $results->fetch_assoc()){
+        
+        $show_name = $r["show_name"];
+        $show_name = local_link($show_name, "show.php?show_name=".urlencode($show_name));
+        $show_website = $r["show_website"];
+        $show_website = nullweb($show_website);
+        $show_desc = $r["show_desc"];
     //show_desc
     //show_website
     //order by show_name
-    
-
-     
-    
+        echo(   line(
+                array(
+                      cell($show_name, "name show_name")
+                    , cell($show_desc, "desc show_desc")
+                    , cell($show_website, "website show_website")
+                    )
+                )
+             );
+    }
 }
 
 function load_all_artists()
 {
     global $mysqli;
-    
+
     //feilds:
     //artist_name <--link artist.php?artist_id=$artist_id
     //artist_desc
     //artist website
+    $query = "SELECT * FROM artist";
+    print_message("hello");
+    $results = $mysqli->query($query);
+    echo(          hline(array(hcell("Name","name artist_name"),
+                    hcell("Description", "desc artist_desc"),
+                    hcell("Website", "website artist_website"))));
+    while($r = $results->fetch_assoc())
+    {
+        $artist_name = local_link($r["artist_name"], "artist.php?artist_id=".$r["artist_id"]);
+        $artist_desc = $r["artist_desc"];
+        $artist_website = nullweb($r["artist_website"]);
+        echo(line(array(
+            hcell($artist_name, "artist_name name"),
+            hcell($artist_desc, "artist_desc desc"),
+            hcell($artist_website, "artist_website website")
+        )));
+    }
     
 }
 
 function load_all_users(){
-    if (aux()){
+    if (true || aux()){
         global $mysqli;
         
         //f:
         
+        $query = "SELECT user.user_id, level_id, fname, lname, phone, email, show_name
+                FROM user
+                LEFT OUTER JOIN show_user ON user.user_id = show_user.user_id ORDER BY fname, lname, show_name";
         //fname
         //lname
-        //email
+        //email<-link mailto
         //phone
         //associated shows <-link show.php?show_id=$show_id
-        if (manager())
-        {
-            //
-            //form w/
-            //input type submit name="edit_user" value = "Edit"
-            //input type numbr name=user_id value = $user_id class = hide
-            
-            if ($user_level == 1)//<--level for user being looked at
-             {
-             //form w/
-            //input type submit name="disable_user" value = "Disable"
-            //input type numbr name=user_id value = $user_id class = hide
-            //use disable_user($user_id)
-             }
-            
-            if ($user_level == 0)
-            
+        echo(hline(array(
+                    hcell("Name", "fname"),
+                    hcell("", "lname"),
+                    hcell("Phone", "phone"),
+                    hcell("Email", "email"),
+                    hcell("Show", "show_name"),
+                    hcell("Edit", "edit form manager"),
+                    hcell("Access", "access form manager")
+                        )));
+        $res = $mysqli->query($query);
+        while($r = $res->fetch_assoc()){
+            $fname = $r['fname'];
+            $lname = $r['lname'];
+            $phone = $r['phone'];
+            $email = $r['email'];
+            $email = email_link($email, $fname." ".$lname);
+            $show_name = $r['show_name'];
+            $show_name = local_link($show_name, "show.php?show_name=".urlencode($show_name));
+            $edit = "";
+            $access = "";
+            if (true || manager())
             {
-                //<--level for user being looked at
-             //form w/
-            //input type submit name="enable_user" value = "Disable"
-            //input type numbr name=user_id value = $user_id class = hide
-            //use enable_user($user_id)
-            }
+            
+                //make_tiny_form($submit_name, $submit_value, $hide_name, $hide_value)
+                //
+                //form w/
+                //input type submit name="edit_user" value = "Edit"
+                //input type numbr name=user_id value = $user_id class = hide
+                    $edit = tiny_form("edit_user", "Edit", "user_id", $r["user_id"]);
+                $user_level = $r["level_id"];
+                if ($user_level == 1)//<--level for user being looked at
+                 {
+                 //form w/
+                //input type submit name="disable_user" value = "Disable"
+                //input type numbr name=user_id value = $user_id class = hide
+                //use disable_user($user_id)
+                    $access = tiny_form("disable_user", "Disable", "user_id", $r["user_id"]);
+                 }
+                
+                elseif ($user_level == 0)
+                
+                {
+                    //<--level for user being looked at
+                 //form w/
+                //input type submit name="enable_user" value = "Disable"
+                //input type numbr name=user_id value = $user_id class = hide
+                //use enable_user($user_id)
+                    $access = tiny_form("enable_user", "Enable", "user_id", $r["user_id"]);
+                }
+            }   
+            
+            echo(line(array(
+                cell($fname, "fname"),
+                cell($lname, "lname"),
+                cell($phone, "phone"),
+                cell($email, "email"),
+                cell($show_name, "show name"),
+                cell($edit, "edit form manager"),
+                cell($access, "access form manager")
+            )));
+            
+        
+        
+        
+        
+        
+    
         }
-        
-        
-        
-        
     }
 }
 

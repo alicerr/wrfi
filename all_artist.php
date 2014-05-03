@@ -9,7 +9,7 @@ $styles = array();
 //page spec. scripts
 $scripts = array();
 //function called by content area
-function content_function(){ load_all_djs(); }
+function content_function(){ load_all_artists(); }
 //load html
 require "php/templetes/top.php";
 ?>

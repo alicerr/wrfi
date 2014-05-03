@@ -66,7 +66,7 @@ function print_error_message($message)
 function print_message($message)
     {
     //if other messages are in que then this one is appended
-    set_global(get_global('error_message')."<p>$message</p>");
+    set_global("message", get_global('message')."<p>$message</p>");
     }
   
 //takes a sucess message and an error message and a bool,

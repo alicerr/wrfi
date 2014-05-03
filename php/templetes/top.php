@@ -51,7 +51,7 @@ require_once "php/controller/initial_load.php";
                     $dj_name = get_session('current_dj_name');
                     $dj_id = get_session('current_dj_id');
                     if ($dj_id) $dj_id = "dj.php?dj_id=".$dj_id;
-                    echo(make_link($dj_name, $dj_id));
+                    echo(local_link($dj_name, get_link(get_global("base_url"), "dj_id", $dj_id)));
                     echo("DJ name here");
                     ?>
                 </h3>
