@@ -180,7 +180,7 @@ function load_edit_panel(){
         set_post("edit_panel", "php/panels/user_edit.php");
         }
     }
-    elseif(get_post("add_user") && manager()){
+    elseif(get_post("add_user") && (true ||manager())){
         //new user
         set_post("edit_panel", "php/panels/user_edit.php"); 
     }
@@ -195,7 +195,9 @@ function load_edit_panel(){
             set_id
             show_name*/}
         if ($set_id || manager()) //only managers can make new sets
-            set_post("edit_panel", "php/panels/set_edit.php"); 
+            set_post("edit_panel", "php/panels/set_edit.php");
+    //REMOVE
+    set_post("edit_panel", "php/panels/set_edit.php"); 
     }
     elseif(get_post("edit_show")){
         $show_id = get_post("show_id");
