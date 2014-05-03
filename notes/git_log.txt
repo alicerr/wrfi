@@ -1,0 +1,214 @@
+commit cb94977873bf77d5085f014125d32b97c1721cfd
+Author: Alice Renegar <arr233@cornell.edu>
+Date:   Tue Apr 29 08:12:38 2014 -0400
+
+    a few more notes
+
+commit edeaa8476994ed6ac6f1b25417625ddfd983fcc5
+Author: Alice Renegar <arr233@cornell.edu>
+Date:   Tue Apr 29 05:29:10 2014 -0400
+
+    more notes, database conection
+
+commit 80c2571a5b1fa5481853c7e781fdccfa3c1ee42c
+Merge: 71c6980 dc0b19e
+Author: Alice Renegar <arr233@cornell.edu>
+Date:   Tue Apr 29 04:32:06 2014 -0400
+
+    Merge branch 'master' of https://github.com/alicerr/wrfi
+
+commit 71c69803bdf5385c44a161b7ca8dbd524fe66a00
+Author: Alice Renegar <arr233@cornell.edu>
+Date:   Tue Apr 29 04:31:20 2014 -0400
+
+    more commenting
+
+commit dc0b19e3697d89c58960c9dea1e258baac124a98
+Author: alicerr <arr233@cornell.edu>
+Date:   Tue Apr 29 03:04:12 2014 -0400
+
+    Update link structure
+
+commit c41d7c6c99b91175be5a358b6866f84a8eb9e6cd
+Author: Alice Renegar <arr233@cornell.edu>
+Date:   Tue Apr 29 02:42:41 2014 -0400
+
+    outlined editing panel loading, improved panels and top
+
+commit 7bd89efd74791de38dd98e15147f226d0a793cb8
+Author: Alice Renegar <arr233@cornell.edu>
+Date:   Tue Apr 29 01:10:02 2014 -0400
+
+    top.php, server running edits, panel overhaul
+
+commit 0b223ab0b893f39f90e0f9c21cfbb00c38a449a6
+Author: alicerr <arr233@cornell.edu>
+Date:   Mon Apr 28 21:52:57 2014 -0400
+
+    Update alice_element_list.txt
+
+commit f499ce8f76bab97adc3da0483df07a252697db05
+Merge: 7af8633 4bf2567
+Author: Alice Renegar <arr233@cornell.edu>
+Date:   Mon Apr 28 19:43:16 2014 -0400
+
+    Merge branch 'master' of https://github.com/alicerr/wrfi
+
+commit 7af863393d31fec14665e8ac99de6043ebbb6e6b
+Author: Alice Renegar <arr233@cornell.edu>
+Date:   Mon Apr 28 19:42:28 2014 -0400
+
+    work on the site structure
+
+commit 4bf2567fcecd545cfa324845a07961483d1057dc
+Author: alicerr <arr233@cornell.edu>
+Date:   Mon Apr 28 19:39:22 2014 -0400
+
+    Update css notes for jackie
+
+commit 7c68d3ad885ab3e94b6543f77b3a84fca9a95e74
+Author: alicerr <arr233@cornell.edu>
+Date:   Mon Apr 28 19:39:11 2014 -0400
+
+    Update alice_element_list.txt
+
+commit 4c743f8df42a37eb08333ffa30fc7133a6aeeccf
+Author: alicerr <arr233@cornell.edu>
+Date:   Mon Apr 28 19:06:26 2014 -0400
+
+    Update link structure
+
+commit 2142fa8bc96a88f47cda28fd8be88d502105bf21
+Author: alicerr <arr233@cornell.edu>
+Date:   Mon Apr 28 18:51:24 2014 -0400
+
+    Delete css_and_script_view.php
+
+commit 7b186e6ca52fcb49b09ae92256deea42fa34ea96
+Author: alicerr <arr233@cornell.edu>
+Date:   Mon Apr 28 18:31:35 2014 -0400
+
+    Update link structure
+    
+    added gets, content functions for each page
+
+commit 060b2f61e6f41f107747e9cc423515da419f850e
+Author: Alice Renegar <arr233@cornell.edu>
+Date:   Mon Apr 28 18:26:01 2014 -0400
+
+    added pages
+
+commit eee14ba4287ceb6f3db1023fd4c02ec07725704b
+Author: jacquelinelviola <jacquelinelviola@gmail.com>
+Date:   Mon Apr 28 17:07:42 2014 -0400
+
+    adding stuff to link pages together
+
+commit c528d66aff12ce00af5c7031224875ab95729cad
+Author: jacquelinelviola <jacquelinelviola@gmail.com>
+Date:   Mon Apr 28 17:03:38 2014 -0400
+
+    added panels folder with edit pages, etc
+
+commit 08d2361b89f745dee263e3134770063a1fc63818
+Author: jacquelinelviola <jacquelinelviola@gmail.com>
+Date:   Mon Apr 28 15:03:25 2014 -0400
+
+    J's version of top
+
+commit df45ceab8f0e0c47d86eec5eaf60fa8c55b19552
+Author: Alice Renegar <arr233@cornell.edu>
+Date:   Sat Apr 26 18:19:56 2014 -0400
+
+    changed html/top.html to templates/top.php
+
+commit 240e786be8f326da4a8c68ec7f4fe8347e3590bb
+Author: Alice Renegar <arr233@cornell.edu>
+Date:   Sat Apr 26 18:18:22 2014 -0400
+
+    j's new top.html
+
+commit d4d97896c7ff338dee89b8a4448f4a375f0134b3
+Author: Alice Renegar <arr233@cornell.edu>
+Date:   Sat Apr 26 01:07:17 2014 -0400
+
+    tim function def. added
+
+commit 437d9263abfae88ff3e7df5c6ee0d075d59f3e90
+Author: Alice Renegar <arr233@cornell.edu>
+Date:   Sat Apr 26 00:20:59 2014 -0400
+
+    content drawing functions, finished fists pass at insertion functions
+
+commit 67db1ad62f0f0bfb2b3a3245893e23eb1a4323cc
+Author: Alice Renegar <arr233@cornell.edu>
+Date:   Fri Apr 25 23:57:20 2014 -0400
+
+    jackie's work on top
+
+commit 94a4cf4e257d8e4f5a993fc8541934cf03649f47
+Author: Alice Renegar <arr233@cornell.edu>
+Date:   Fri Apr 25 18:47:44 2014 -0400
+
+    added notes about css, url formating list, and stylesheet
+
+commit 40e2b77ca3a00d7864b65f657362c7cb7660045b
+Author: Jackie Viola <Jackie@rrdhcp-10-32-143-142.redrover.cornell.edu>
+Date:   Fri Apr 25 17:25:22 2014 -0400
+
+    Added images folder
+
+commit 5309d7e5f3f8bdd2f07439043cf8f75001b5f75f
+Author: Alice Renegar <arr233@cornell.edu>
+Date:   Fri Apr 25 13:40:39 2014 -0400
+
+    abandoned search functions, working on update functions
+
+commit 422dca53a8725fa946d9b3324b4680e4a7013e80
+Author: Alice Renegar <arr233@cornell.edu>
+Date:   Fri Apr 25 00:13:47 2014 -0400
+
+    search functions not completed, last push b4 bed
+
+commit d717add208f27d3ada8799ee6f18cb2991bfcb3c
+Author: Alice Renegar <arr233@cornell.edu>
+Date:   Thu Apr 24 21:06:13 2014 -0400
+
+    basic query functions
+
+commit 915d3cdfabdc73f779e2285126b7efb75019a6dd
+Merge: 6905006 a466882
+Author: Alice Renegar <arr233@cornell.edu>
+Date:   Thu Apr 24 14:20:55 2014 -0400
+
+    Merge branch 'master' of https://github.com/alicerr/wrfi
+
+commit 6905006db0ec561af6357c8cc8b2a00133810248
+Author: Alice Renegar <arr233@cornell.edu>
+Date:   Wed Apr 23 19:06:35 2014 -0400
+
+    alice's initial work on wrfi site
+
+commit a466882eeea606ff043231fe88f69b584e06dfec
+Author: Jackie Viola <Jackie@rrdhcp-10-33-234-231.redrover.cornell.edu>
+Date:   Wed Apr 23 18:09:43 2014 -0400
+
+    Added basic forms for all users and dj panels. Started manager panel
+
+commit 25075730d81bb395b5efec7f3f11d973dc461943
+Author: Jackie Viola <Jackie@rrdhcp-10-33-234-231.redrover.cornell.edu>
+Date:   Wed Apr 23 17:09:51 2014 -0400
+
+    README.md update
+
+commit e055087dc53e29e5edaedf78299a4800608f03f6
+Author: Alice Renegar <arr233@cornell.edu>
+Date:   Wed Apr 23 15:14:06 2014 -0400
+
+    alice's initial work on wrfi site
+
+commit 7e122fb144000619324d42cda0093e450c6041a9
+Author: alicerr <arr233@cornell.edu>
+Date:   Wed Apr 23 12:08:27 2014 -0700
+
+    Initial commit

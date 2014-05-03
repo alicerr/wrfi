@@ -11,7 +11,7 @@ require_once "php/controller/initial_load.php";
     <link href="style/base.css" rel="stylesheet">
     <!--<script src="script/base.js"></script>-->
     <?php 
-        //inc_style($styles); //load any page spec styles
+        inc_style($styles); //load any page spec styles
         //inc_script($scripts); //load any page spec scripts
         setCSS(); //user state specific css
 
@@ -19,6 +19,7 @@ require_once "php/controller/initial_load.php";
 </head>
 
 <body>
+
     <div id = "left">
         <div id = "listener">
 
@@ -99,16 +100,12 @@ require_once "php/controller/initial_load.php";
         </div>
     </div>
     <div id = "middle">
+            <div id = "left_hold"></div>
         <div id = "header">
             <!--wrfi image here-->
             <img src="images/wrfi_logo.png" alt="WRFI">
         </div>
-        <div id = "message">
-            <!--messages to user drawn here-->
-		event (error/success) messages will be displayed here
-            <?php draw_message(); ?>
-             <div id = "jsmessage"></div>
-        </div>
+
         <div id = "content">
             <!--block and line content here-->
             <!---forward/backward results here-->
@@ -157,8 +154,13 @@ require_once "php/controller/initial_load.php";
                 
    
         </div>
-    </div>
-    
+        </div>
+          <div id = "message">
+            <!--messages to user drawn here-->
+		event (error/success) messages will be displayed here
+                <?php draw_message(); ?>
+             <div id = "jsmessage"></div>
+        </div>  
 
 
 

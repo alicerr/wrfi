@@ -187,10 +187,10 @@ function load_dj(){
         //label <--link label_website
         //dj 
         //duration
-        if (aux() || is_show_user($show_name))
-        {
+        //if (aux() || is_show_user($show_name))
+        //{
         //form w/ start hiddin and name = "edit_track"
-        }
+        //}
 }
 
 

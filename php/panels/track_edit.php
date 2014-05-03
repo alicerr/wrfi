@@ -22,7 +22,7 @@
 	<input type="date" name="start_date"
 	       	value = "<?php echo(get_post("start_date")); ?>" required />
 	<br />
-	Duration:
+	Playtime:
 	<input type="number" min = "0" max = "64" width = "2" name="duration_min"
 	       	value = "<?php echo(get_post("duration_min")); ?>" required />:
 	<input type="number" min = "0" max = "59" width = "2" name="duration_sec" required 
@@ -61,10 +61,10 @@
 				      
 	<!--label info-->
 
-	Label: https://<input type="text" name="label_name"
+	Label: <input type="text" name="label_name"
 	 	value = "<?php echo(get_post("label_name")); ?>" />
 		
-	Label website: https://<input type="text" name="label_website"
+	Label website: https://www.<input type="text" name="label_website"
 	 	value = "<?php echo(get_post("label_website")); ?>" />
         <input type="submit" value="Save changes" name="update_track" />
     </form>

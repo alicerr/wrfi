@@ -56,7 +56,7 @@ function warn($b, $message)
 function print_error_message($message)
     {
     //if other messages are in que then this one is appended
-    set_global(get_global('error_message')."<p>$message</p>");
+    set_global("error_message", get_global('error_message')."<p>$message</p>");
     }
 //prints a message to the user
 //(black text in the top bar)

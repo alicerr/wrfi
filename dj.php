@@ -10,7 +10,8 @@ $styles = array();
 //page spec. scripts
 $scripts = array();
 //function called by content area
+
 function content_function(){ load_dj(); }
 //load html
-require "php/templetes/top.php";
+require "php/templetes/top.php";print_error_message("testing");
 ?>

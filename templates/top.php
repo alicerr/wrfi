@@ -19,6 +19,7 @@ require_once "php/controller/initial_load.php";
 </head>
 
 <body>
+
     <div id = "left">
         <div id = "listener">
 
@@ -99,6 +100,7 @@ require_once "php/controller/initial_load.php";
         </div>
     </div>
     <div id = "middle">
+            <div id = "left_hold"></div>
         <div id = "header">
             <!--wrfi image here-->
             <img src="images/wrfi_logo.png" alt="WRFI">
