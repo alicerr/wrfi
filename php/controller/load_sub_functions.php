@@ -16,10 +16,17 @@ function check_for_edits()
         dj_name
         dj_desc
         dj_website
+        
         call:
         add_dj($dj_id, $dj_name, $user_id, $dj_desc, $dj_website)
         reload_user_info();
         */
+        $dj_id = get_post("dj_id");
+        $dj_desc = get_post("dj_desc");
+        $dj_website = get_post("dj_website");
+        $user_id = get_session("user_id");
+        add_dj($dj_id, $dj_name, $user_id, $dj_desc, $dj_website);
+        
     }
     elseif (get_post("update_artist"))
     {
@@ -31,6 +38,13 @@ function check_for_edits()
         call:
         add_artist($artist_id, $artist_name, $artist_desc, $artist_website)
         */
+        $artist_desc = get_post("artest_desc");
+        $artist_desc = get_post("artist_website");
+        $artist_id = get_post("artist_name");
+        $artist_desc = get_post("artist_desc");
+        
+        add_artist($artist_id, $artist_name, $artist_desc, $artist_website);
+        
     }
     elseif (get_post("update_user"))
     {
@@ -47,6 +61,16 @@ function check_for_edits()
         update_user( $email, $fname, $lname, $phone, $new_password, $confirm_password, $old_password)
         reload_user_info();
         */
+        $email =get_post("email");
+        $old_password = get_post("password");
+        $confirm_password = get_post("confirm_password");
+        $user_id = get_post("user_id");
+        $lname = get_post("lname");
+        $fname = get_post("fname");
+        $phone = get_post("phone");
+        $new_password = get_post("new_password");
+        update_user( $email, $fname, $lname, $phone, $new_password, $confirm_password, $old_password);
+        
         
     }
     elseif (get_post("update_set"))
@@ -60,6 +84,11 @@ function check_for_edits()
         call:
         
         */
+        $set_end = get_post($set_end);
+        $set_start = get_post($set_start);
+        $set_id = get_post($set_id);
+        $show_name = get_post($show_name);
+        
     }
     elseif (get_post("update_show"))
     {
@@ -177,6 +206,7 @@ function load_edit_panel(){
             user_id
             lname
             fname*/
+            
         set_post("edit_panel", "php/panels/user_edit.php");
         }
     }
