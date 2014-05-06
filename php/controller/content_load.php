@@ -64,6 +64,7 @@ function load_all_artists()
     //artist website
     $query = "SELECT * FROM artist";
     print_message("hello");
+    table_start();
     $results = $mysqli->query($query);
     echo(          hline(array(hcell("Name","name artist_name"),
                     hcell("Description", "desc artist_desc"),
@@ -73,12 +74,14 @@ function load_all_artists()
         $artist_name = local_link($r["artist_name"], "artist.php?artist_id=".$r["artist_id"]);
         $artist_desc = $r["artist_desc"];
         $artist_website = nullweb($r["artist_website"]);
+        
         echo(line(array(
-            hcell($artist_name, "artist_name name"),
-            hcell($artist_desc, "artist_desc desc"),
-            hcell($artist_website, "artist_website website")
+            cell($artist_name, "artist_name name"),
+            cell($artist_desc, "artist_desc desc"),
+            cell($artist_website, "artist_website website")
         )));
     }
+    table_stop();
     
 }
 
@@ -96,6 +99,7 @@ function load_all_users(){
         //email<-link mailto
         //phone
         //associated shows <-link show.php?show_id=$show_id
+        table_start();
         echo(hline(array(
                     hcell("Name", "fname"),
                     hcell("", "lname"),
@@ -164,6 +168,7 @@ function load_all_users(){
         
     
         }
+        table_stop();
     }
 }
 
@@ -177,6 +182,7 @@ function load_all_djs(){
     //dj_shows <--shows the dj has played tracks on, link to show.php?show_name=$show_name
     $query = "SELECT dj_id, dj_name, dj_desc, dj_website, fname, lname, email FROM dj INNER JOIN user ON user.user_id = dj.user_id";
     $res = $mysqli->query($query);
+    table_start();
      echo(hline(array(
                     hcell("DJ/Host", "dj_name name" ),
                     hcell("About", "dj_desc desc"),
@@ -206,6 +212,7 @@ function load_all_djs(){
             cell($email, " email aux "))));
  
     }
+    table_stop();
     
 }
 
@@ -274,6 +281,7 @@ function load_set(){
 
         $res = $mysqli->query($query);
         if ($res->num_rows > 0){
+            table_start();
             echo(hline(array(
                              hcell("Start", "time start"),
                              hcell("Air Time", "audit time duration"),
@@ -317,6 +325,7 @@ function load_set(){
             )));
             
         }
+        table_stop();
         }
         else
         echo("no tracks found");
@@ -391,6 +400,7 @@ function load_artist()
 
                     $res = $mysqli->query($query);
                 if ($res && $res->num_rows > 0){
+            table_start();
             echo(hline(array(
                             
                              hcell("Name", "track_name name"),
@@ -434,6 +444,7 @@ function load_artist()
             )));
             
         }
+        table_stop();
         }
         else
         print_error_message("no tracks found");
@@ -503,6 +514,7 @@ function load_dj(){
                  
                     $res = $mysqli->query($query);
                 if ($res && $res->num_rows > 0){
+                    table_start();
                     echo(hline(array(
                                     
                                      
@@ -556,6 +568,7 @@ function load_dj(){
             )));
             
         }
+        table_stop();
         }
         else
         print_error_message("no tracks played");
@@ -626,11 +639,12 @@ LIMIT 0 , 30";
         
         if (!$newest) $newest = $set_start;
         $oldest = $set_end;
+        
         $sets = $sets.line(array(
                             cell($set_start, "set_start datetime"),
-                            cell($set_end, "set_end, time"),
-                            cell($show_name, "show_name, name"),
-                            cell($set_desc, "set_desc"),
+                            cell($set_end, "set_end time"),
+                            cell($show_name, "show_name name"),
+                            cell($set_desc, "set_desc desc"),
                             cell($set_link, "link set_link"),
                             cell($edit, "edit manager set_edit form"),
                             cell($delete, "delete manager set_edit form "),
@@ -643,17 +657,19 @@ LIMIT 0 , 30";
     
     echo($older);
     echo($newer);
+    table_start();
     echo(hline(array(
         hcell("Start", "datetime set_start"),
-        hcell("End", "time", "set_end time"),
+        hcell("End", "time set_end time"),
         hcell("Show", "show_name name"),
-        hcell("Description", "set_desc, desc" ),
+        hcell("Description", "set_desc desc" ),
         hcell("Link", "link set_link"),
         hcell("Edit", "edit manager set_edit form"),
         hcell("Delete", "delete manager edit form"),
         hcell("Warn", "aux form email_record"),
         hcell("Record", "aux form email_record"))));
     echo($sets);
+    table_stop();
     echo($older);
     echo($newer);
     if (true || aux()){
@@ -708,6 +724,7 @@ function load_show()
 
         $res = $mysqli->query($query);
          if ($res->num_rows > 0){
+            table_start();
             echo(hline(array(
                 hcell("Start", "datetime set_start"),
                 hcell("End", "time end_time"),
@@ -729,6 +746,7 @@ function load_show()
                     cell($set_link, "link set_link")
                 )));
             }
+            table_stop();
             
         }
         

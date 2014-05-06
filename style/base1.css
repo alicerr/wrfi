@@ -1,5 +1,5 @@
 body {
-    font-family: Optima, 'Helvitica Neue' , Helvitica, Ariel, sans-serif;
+    font-family: 'Helvitica Neue' , Helvitica, Ariel, sans-serif;
     background-color: #c4d3ea;
     color: #4d3724;
     font-size: 0.8em;
@@ -15,12 +15,6 @@ body {
 #left, #right, #middle {
     font-size: .9em;
     padding-top: 15px;
-}
-.lower{
-    position: absolute;
-    bottom: 20%;
-    height: 45%;
-    width: 100%;
 }
 h1 {
     font-size: 2.2em;
@@ -69,18 +63,20 @@ h3 {
     border: 5px solid #406398;
     border-radius: 100px;
     color: #e4e0f5;
-    display: table;
-    text-align: center;
 
 
 }
+#listener, #dj form, #streaming, #manager {
+    margin: auto;
 
+
+}
 #listener, #streaming{
 	top: 0%;
 	height: 20%;
 }
 #dj, #manager{
-	bottom: 0%;
+	top: 22%;
 	height: 45%;
 
 }
@@ -91,9 +87,6 @@ h3 {
 	color: #406298;
 	font-size: 1.1em;
 	border-radius: 0px;
-	padding: 0;
-	margin: 0;
-	border: 0px;
 	
 }
 a{
@@ -112,29 +105,20 @@ textarea {
 	border-radius: 0px;
 }
 .button {
-	width: 94%;
+    width: 94%;
 	margin: 0;
 	border: #cdc7ec solid 2px;
-	padding: 2px;
-	position: relative;
-	left: -.5px;
+	padding: 3px;
 	display: inline-block;
 }
-.input[type="submit"]{
-	
-	padding: 3px;
-	
-	
-}
 .button, input[type="submit"]{
-	
-	
+
+	margin: 0;
 	border: #cdc7ec solid 2px;
 	background-color: #e4e0f5;
 	color: #504199;
-	
+	padding: 3px;
 }
-
 #middle #editing .hide, #middle #content .hide {
     display: none;
 }
@@ -181,17 +165,13 @@ img{
 #message_block{
 	position: absolute;
 	top: 0;
-	width: 63.5%;
-	left: 18%;
+	width: 64%;
+	left: 19%;
 	opacity: .8;
 	min-height: 20px;
 	color: #3e9788;
 	border: 2px solid #bfe8e1;
 	background-color: #dcf4f0;
-	text-align: center;
-}
-#error_message{
-    color: orange;
 }
 
 #editing{
@@ -224,10 +204,45 @@ input:required {
 	display: inline;
 }
 
+.line, .hline, .bline{
+    display: table-line;
+ 
+height: 40px;
+overflow: hidden;
+border-bottom: solid 5px grey;
+position: relative;
+width: 100%;
 
-.cline{
+}
 
+
+
+.hline{
+border-top: 20px solid red;
+
+}
+
+.hcell{
+text-align: center;
+
+}
+.cell, .hcell, .bcell, bcell a
+{	overflow: hidden;
     display: table-cell;
-    vertical-align: middle;
-    
+text-overflow: clip;
+	height: 20px;
+width: 20%;
+border: 2px solid black;
+position: relative;
+
+
+
+	
+}
+.edit, .delete, email, .form, .audit, .link{
+text-align: center;
+}
+.desc{
+width: 20%;
+
 }

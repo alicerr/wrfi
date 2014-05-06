@@ -5,7 +5,7 @@ $pageTitle = "All Users";
 //this pages url
 $GLOBALS['base_url'] = "all_user.php";
 //page spec styles
-$styles = array();
+$styles = array("style/all_user.css");
 //page spec. scripts
 $scripts = array();
 //function called by content area

@@ -33,6 +33,8 @@ function inc_script($urls)
 //OUTPUT: none
 function inc_style($urls)
     {
+    //print_message("here");
+    //foreach($urls as $url) print_message($url);
     foreach($urls as $url) echo ("<link rel=\"stylesheet\" href=\"$url\">");
     }
 

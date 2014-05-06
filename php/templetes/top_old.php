@@ -51,7 +51,7 @@ require_once "php/controller/initial_load.php";
                     $dj_name = get_session('current_dj_name');
                     $dj_id = get_session('current_dj_id');
                     if ($dj_id) $dj_id = "dj.php?dj_id=".$dj_id;
-                    echo(make_link($dj_name, $dj_id));
+                    echo(local_link($dj_name, get_link(get_global("base_url"), "dj_id", $dj_id)));
                     echo("DJ name here");
                     ?>
                 </h3>
@@ -105,16 +105,11 @@ require_once "php/controller/initial_load.php";
             <!--wrfi image here-->
             <img src="images/wrfi_logo.png" alt="WRFI">
         </div>
-        <div id = "message">
-            <!--messages to user drawn here-->
-		event (error/success) messages will be displayed here
-            <?php draw_message(); ?>
-             <div id = "jsmessage"></div>
-        </div>
+
         <div id = "content">
             <!--block and line content here-->
             <!---forward/backward results here-->
-            Tables and block content go here
+            
             
             <?php content_function(); //calls gen. content function for each page ?>
             <h2 id="page_title">Page title</h2>
@@ -159,8 +154,13 @@ require_once "php/controller/initial_load.php";
                 
    
         </div>
-    </div>
-    
+        </div>
+          <div id = "message">
+            <!--messages to user drawn here-->
+		
+                <?php print_message("this is a message"); print_error_message("this is an error message, it's not even formated"); draw_message(); ?>
+             <div id = "jsmessage"></div>
+        </div>  
 
 
 

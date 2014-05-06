@@ -1,0 +1,46 @@
+
+.table{
+    table-layout: fixed;
+    display: table;
+    width: 100%;
+    margin-top: 50px;
+    margin-bottom: 50px;
+
+}
+.bline {
+    position: relative;
+    width: 100%;
+    display: table-row;
+}
+.cell{
+    width: 14.2%;
+    position: relative;
+    display: table-cell;
+    vertical-align: middle;
+    
+}
+.hline{
+    padding-bottom: 20px;
+    display: table-row;
+    height: 80px;
+}
+.cell form{
+    text-align: center;
+}
+
+.hcell{
+    color: white;
+    background-color: black;
+}
+
+
+.bcell
+{
+
+    border: 2px solid black;
+
+
+
+
+	
+}

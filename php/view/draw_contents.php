@@ -26,6 +26,13 @@
         return("\n<div class = \"hcell cell $class\" >\n\t$guts\n</div>");
     }
     
+    function table_start(){
+        echo("<div class = \"table\">");
+    }
+    function table_stop(){
+        echo("</div>");
+    }
+    
     //creates links
     //If content is not null:
     //return a linked content, if $link is not null, else return just text content

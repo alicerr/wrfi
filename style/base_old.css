@@ -1,5 +1,5 @@
 body {
-    font-family: Optima, 'Helvitica Neue' , Helvitica, Ariel, sans-serif;
+    font-family: 'Helvitica Neue' , Helvitica, Ariel, sans-serif;
     background-color: #c4d3ea;
     color: #4d3724;
     font-size: 0.8em;
@@ -14,22 +14,16 @@ body {
 }
 #left, #right, #middle {
     font-size: .9em;
-    padding-top: 15px;
-}
-.lower{
-    position: absolute;
-    bottom: 20%;
-    height: 45%;
-    width: 100%;
 }
 h1 {
     font-size: 2.2em;
     color: #504199;
 }
 h2{ 
-    font-variant: small-caps; 
-    color: #504199; 
+   font-variant: small-caps; 
+  color: #504199; 
 }
+
 h3 {
     font-style: italic;
     color: #504199;
@@ -46,7 +40,6 @@ h3 {
 #left {
     top: 0;
     left: 0;
-
 }
 #left h3, #right h3{
     color: #e4e0f5;
@@ -54,7 +47,9 @@ h3 {
 #header{
     position: relative;
     width: auto;
-
+    
+    
+    
 }
 #right {
     top: 0;
@@ -63,15 +58,12 @@ h3 {
 #listener, #dj, #streaming, #manager {
     background-color: #406298;
     position: absolute;
-    margin-top: 20%;
+    margin: 9%;
     width: 60%;
     padding: 12%;
     border: 5px solid #406398;
     border-radius: 100px;
     color: #e4e0f5;
-    display: table;
-    text-align: center;
-
 
 }
 
@@ -80,120 +72,88 @@ h3 {
 	height: 20%;
 }
 #dj, #manager{
-	bottom: 0%;
+	top: 22%;
 	height: 45%;
 
 }
-.button, input, input[type="email"]{
-	display: block;
+ .button, input,  input[type="email"]{
+		display: block;
 	position: relative;
 	background-color: #c4d3ea;
 	color: #406298;
 	font-size: 1.1em;
 	border-radius: 0px;
-	padding: 0;
-	margin: 0;
-	border: 0px;
-	
+
+
 }
 a{
     text-decoration: none;
     text-align: center;
-
 }
 input {
     width: 100%;
 }
-textarea {
-	width: 18%;
-	background-color: #c4d3ea;
-	color: #406298;
-	font-size: 1.1em;
-	border-radius: 0px;
-}
 .button {
-	width: 94%;
-	margin: 0;
-	border: #cdc7ec solid 2px;
-	padding: 2px;
-	position: relative;
-	left: -.5px;
-	display: inline-block;
-}
-.input[type="submit"]{
-	
-	padding: 3px;
-	
-	
+    width: 94%;
 }
 .button, input[type="submit"]{
-	
-	
+
+	margin: 0;
 	border: #cdc7ec solid 2px;
 	background-color: #e4e0f5;
 	color: #504199;
-	
+	padding: 3px;
+}
+#middle #editing .hide {
+    display: none;
+    
+
+}
+#middle #editing .button, #middle #editing input{
+    width: auto;
+
+    display: inline;
 }
 
-#middle #editing .hide, #middle #content .hide {
-    display: none;
-}
-#middle #editing .button, #middle #editing input
-{
-    width: auto;
-    display: inline-block;
-}
-#middle #editing label{
-	width: 125px;
-	display: inline-block;
-	font-style: oblique;
-	font-weight: bold;
-}
 .button:hover, input[type="submit"]:hover{
 	border: #bfe8e1 solid 2px;
 	background-color: #dcf4f0;
 	color: #3e9788;
 
+
+
 }
+
 #middle{
 	width: 64%;
-	position: relative;
+	position: absolute;
 	margin-left: 30px;
 	margin-right: 30px;
 	z-index: 0;
 	left: 16%;
 	min-width: 700px;
+
 	top: 0;
 
 }
-#middle #content {
-	font-size: 14px;
-	font-family: 'Optima' , Helvitica, Ariel, sans-serif;
-}
-img{
+ img{
 	width: 100%;
 	z-index: 1;
-	border-radius: 50px;
+	border-radius: 100px;
 	position: relative;
 	background-color: #B1440e;
 
 }
-#message_block{
+#message{
 	position: absolute;
-	top: 0;
-	width: 63.5%;
-	left: 18%;
+	width: 64%;
+	left: 19%;
 	opacity: .8;
 	min-height: 20px;
 	color: #3e9788;
 	border: 2px solid #bfe8e1;
 	background-color: #dcf4f0;
-	text-align: center;
 }
-#error_message{
-    color: orange;
-}
-
 #editing{
 	position: fixed;
 	z-index: 1;
@@ -207,27 +167,4 @@ img{
 	width: 56%;
 	left: 18%;
 	bottom: 0;
-}
-select {
-
-	text-align: center;
-	width: auto;
-    display: inline-block;
-}
-input:required {
-	box-shadow: 1px 1px 1px rgba(200, 0, 0, 0.85);
-}
-
-
-#middle #content input, #middle #content .button{
-	width: 5em;
-	display: inline;
-}
-
-
-.cline{
-
-    display: table-cell;
-    vertical-align: middle;
-    
 }
