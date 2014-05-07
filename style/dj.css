@@ -1,24 +1,41 @@
-
+.title {
+    text-align: center;
+}
+.subheading, .title, #middle h2, #middle h3, .blocktext {
+    width: 90%;
+    position: relative;
+    left: 5%;
+    
+}
+.blocktext {
+        width: 80%;
+    position: relative;
+    left: 10%;
+}
 .table{
     table-layout: fixed;
     display: table;
     width: 99%;
     margin-top: 30px;
     margin-bottom: 50px;
-    position: relative;
+white-space: nowrap;
     left: .5%;
+    position: relative;
     
 
 }
 .bline {
-    position: relative;
+
     width: 100%;
     display: table-row;
+    height: 35px;
+    overflow: hidden;
+    
    
 }
 .cell{
-    width: 14.2%;
-    position: relative;
+    width: 17.5%;
+    max-height: 35px;
     display: table-cell;
     vertical-align: middle;
     text-overflow: ellipsis;
@@ -47,11 +64,22 @@
 .hcell{
     color: white;
     background-color: black;
+    
 }
 .name, .fname, .lname {
     font-variant: small-caps;
     font-size: 1.2em;
     font-weight: 600;
 }
-
-
+.desc{
+    width: 30%;
+}
+.datetime{
+    width: 20%;
+}
+.time{
+    width: 10%;
+}
+.link, .website{
+    text-align: center;
+}

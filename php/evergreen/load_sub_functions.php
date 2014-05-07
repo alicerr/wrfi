@@ -99,6 +99,10 @@ function check_for_edits()
         show_name
         call: add_show($show_name, $show_desc, $show_website)
         */
+        $add_show = get_post("add_show");
+        $show_website = get_post("show_website");
+        $show_name = get_post("show_name");
+        add_show($show_name, $show_desc, $show_website);
         
     }
     elseif (get_post("add_show_user"))
@@ -108,6 +112,9 @@ function check_for_edits()
         show_name
         call: add_show_user($show_name, $email)
         */
+        $show_name = get_post("show_name");
+        $user_email = get_post("user_email");
+        add_show_user($show_name, $email);
     }
     elseif (get_post("remove_show_user"))
     {
@@ -116,20 +123,39 @@ function check_for_edits()
         show_name
         call: 
         */
+        $show_name = get_post("show_name");
+        $user_email = get_post("user_email");
+        remove_show_user($show_name, $email);
         
     }
     elseif (get_post("update_track"))
     {
-        /*harvest:
+        $start_date = get_post("start_date");
+        $start_hour = get_post("start_hour");
+        $start_min = get_post("start_min");
+        $start_sec = get_post("start_sec");
+        
+        $start = new DateTime($start_date);
+        $start = date_time_set($start, $start_hour, $start_min, $start_sec);
+           /*harvest:
         *track_id
+        
        track_name
        start_hour
        start_min
        start_sec
        start_am_pm
-       start_date
+       start_date*/
+       $track_name = get_post("track_name");
+       $duration_min = get_post("duration_min");
+       $duration_sec = get_post("duration_sec");
+       $duration = (60* $duration_min) + $duration_sec;
        
-       duration_min
+       $length_hour = get_post("length_hour");
+       $length_min = get_post("length_min");
+       $length_sec = get_post("length_sec");
+       $length = 60*60*$length_hour + 60*$length_min + $length_sec;
+      /* duration_min
        duration_sec
        
        length_hour
@@ -147,6 +173,19 @@ function check_for_edits()
        then
        call: add_track($track_id, $track_name, $artist_id, $artist_name, $album_id, $album_name, $label_name, $label_website, $album_id, $album_name, $album_website, $artist_id, $artist_name, $artist_website, $artist_desc)
        */
+      $album_id = get_post("album_id");
+      $album_name = get_post("album_name");
+      $album_website = get_post("album_website");
+      
+      $artist_name = get_post("artist_name");
+      $artist_website = get_post("artist_website");
+      $artist_id = get_post("artist_id");
+      $artist_desc = get_post("artist_desc");
+      $label_name = get_post("label_name");
+      $label_website = get_post("label_website");
+      $track_id = get_post("track_id");
+      add_track($track_id, $track_name, $artist_id, $artist_name, $album_id, $album_name, $label_name, $label_website, $album_id, $album_name, $album_website, $artist_id, $artist_name, $artist_website, $artist_desc);
+      
     }
     
 }
@@ -199,6 +238,10 @@ function load_edit_panel(){
         $user_id = get_session("user_id");
         if (get_post("user_id") && manager()) $user_id = get_post("user_id"); //managers can edit other users
         if ($user_id){
+            $query = "SELECT * FROM user WHERE user_id = $user_id";
+            global $mysqli;
+            $res = $mysqli->query($query);
+            
            /**query and set post data for user
             user_id
             phone

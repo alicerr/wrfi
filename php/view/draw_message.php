@@ -15,6 +15,7 @@
     //writes 'click to dismiss' using js
     if ($message || $error_message)
         echo("<script> document.write(\"<div id = \\\"click\\\">click here to dismiss message</div>\");</script>");
+    
     }
     
     

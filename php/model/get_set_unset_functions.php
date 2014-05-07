@@ -31,12 +31,13 @@
     }
     
     function set_session($name, $arg){
-        $cleaned_arg = clean($arg);
-        if ($cleaned_arg){$_SESSION[$name] = $cleaned_arg; $set = true;}
-        return $cleaned_arg;
+
+            $_SESSION[$name] = $arg;
+      
     }
     function get_session($name){
-        if (isset($_SESSION[$name])) return clean($_SESSION[$name]); else return null;
+       if (isset($_SESSION[$name])) return $_SESSION[$name];
+       else return "";
     }
     function unset_session($name){
         unset($_SESSION[$name]);

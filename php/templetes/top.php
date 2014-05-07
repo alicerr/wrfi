@@ -9,7 +9,9 @@ require_once "php/controller/initial_load.php";
     <meta charset="utf-8">
     <title><?php echo($pageTitle); ?></title>
     <link href="style/base.css" rel="stylesheet">
-    <!--<script src="script/base.js"></script>-->
+    <script src=
+    "http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="script/base.js"></script>
     <?php 
         inc_style($styles); //load any page spec styles
         //inc_script($scripts); //load any page spec scripts
@@ -48,6 +50,10 @@ require_once "php/controller/initial_load.php";
                     <div id ="logged_in_dj" class = "logged_in" >
                         <!--dj in form here-->
                         <!-- display dj's name -->
+                                               
+                       <form method = "post">
+                           <input type = "submit" name="edit_track" value="Add track" />
+                       </form>
                         <h3>
                             <?php
                             //prints out selected dj name with a link to the dj page
@@ -58,34 +64,32 @@ require_once "php/controller/initial_load.php";
                             echo("DJ Awesome");
                             ?>
                         </h3>
-            
-                       <form method = "post">
-                           <input type = "submit" name="edit_track" value="Add track" />
-                       </form>
-                       <!-- <a href="" class="button">Add DJ name</a>
-                       <a href="" class="button">Change email</a> -->
-                       <form method = "post"><!--edit user details-->
-                           <input type = "submit" name = "edit_user" value="User settings" />
-                       </form>
-                       <form method = "post"><!--add dj name-->
-                           <input type = "submit" name = "add_dj" value="Add DJ" />
-                       </form>
-                       <form method = "post">
+                        <form method = "post">
                        <!-- dropdown to select DJ names for that user -->
                            <select name="dj_id">
-                               <option value = "1">a dj name</option>
-                               <option value = "2">a different dj name</option>
+                               <option value = "1">DJ Awesome</option>
+                               <option value = "2">DJ Amazing</option>
                                <?php
                                //drop menu of users dj names
-                                   $dj_names = get_session("dj_names");
-                                   $dj_ids = get_session("dj_ids");
-                                   for ($i = 0; $i < count($dj_names); $i++)
-                                       echo("<option value =\"".$dj_ids[$i]."\">".$dj_names[$i]."</option>");
+                                   //$dj_names = get_session("dj_names");
+                                   //$dj_ids = get_session("dj_ids");
+                                   //for ($i = 0; $i < count($dj_names); $i++)
+                                       //echo("<option value =\"".$dj_ids[$i]."\">".$dj_names[$i]."</option>");
                                 ?>
                                
                            </select>
                            <input type="submit" name="change_dj_name" value="Select DJ name" />
                        </form>
+                        <form method = "post"><!--add dj name-->
+                           <input type = "submit" name = "add_dj" value="Add DJ Name" />
+                       </form>
+
+                       <!-- <a href="" class="button">Add DJ name</a>
+                       <a href="" class="button">Change email</a> -->
+                       <form method = "post"><!--edit user details-->
+                           <input type = "submit" name = "edit_user" value="User Details" />
+                       </form>
+
                        <form  method="post"> 
                            <input type="submit" value="Log out" name="logout" />
                        </form>
@@ -95,12 +99,12 @@ require_once "php/controller/initial_load.php";
                     <div id = "logged_out_dj" class = "out">
                         <!--logged out form here-->
                         
-                        <form  method="post"> 
+                        <!--<form  method="post"> 
                             Email: <input type="email" name="user" required />
                             Password: <input type="password" name="password" />
                             <input type="submit" value="Log in" name="login" />
                             <input type="submit" name = "reset_password" value="Forgot password" /> <!-- LINK -->
-                        </form>
+                        <!--</form>-->
                     </div>
                 </div>
             </div>
@@ -138,11 +142,12 @@ require_once "php/controller/initial_load.php";
                 <!--test for js?-->
                 
                     <div class = "cline">
-                       <a href="<?php get_last_url(); ?>" class="button">Back</a>
+
                        <!-- buttons to parts of the site (all shows, djs, schedules, etc) -->
-                       <a href="all_show.php" class="button">All shows</a>
-                       <a href="all_dj.php" class="button">DJs</a>
                        <a href="schedule.php" class="button">Schedule</a>
+                       <a href="all_show.php" class="button">Shows</a>
+                       <a href="all_dj.php" class="button">DJs</a>
+                       <a href="<?php echo(get_last_url()); ?>" class="button">Back</a>
                     </div>   
                 
             </div>
@@ -173,7 +178,7 @@ require_once "php/controller/initial_load.php";
           <div id = "message_block">
             <!--messages to user drawn here-->
 		
-                <?php print_message("this is a message"); print_error_message("this is an error message, it's not even formated"); draw_message(); ?>
+                <?php print_message("this is a message"); print_error_message("this is an error message"); draw_message(); ?>
              <div id = "jsmessage"></div>
         </div>  
 

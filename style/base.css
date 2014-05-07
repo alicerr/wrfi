@@ -45,7 +45,7 @@ h3 {
 }
 #left {
     top: 0;
-    left: 0;
+    left: 1%;
 
 }
 #left h3, #right h3{
@@ -58,7 +58,7 @@ h3 {
 }
 #right {
     top: 0;
-    right: 0;
+    right: 1%;
 }
 #listener, #dj, #streaming, #manager {
     background-color: #406298;
@@ -71,6 +71,7 @@ h3 {
     color: #e4e0f5;
     display: table;
     text-align: center;
+    
 
 
 }
@@ -99,7 +100,7 @@ h3 {
 a{
     text-decoration: none;
     text-align: center;
-
+	font-family: 'Helvitica Neue' , Helvitica, Ariel, sans-serif;
 }
 input {
     width: 100%;
@@ -163,17 +164,37 @@ textarea {
 	z-index: 0;
 	left: 16%;
 	min-width: 700px;
+	background-color: white;
+	height: 100%;
 	top: 0;
+	border-bottom: 50px solid white;
+	border-bottom-left-radius: 100px;
+	border-bottom-right-radius: 100px;
+	
 
+}
+.table {
+	border-bottom: black 10px solid;
+}
+.line {
+	padding-bottom: 3px;
+}
+
+
+#middle input[type="text"], #middle textarea, #middle input[type="number"], #middle input[type="datetime-local"], #middle input[type="date"], #middle input[type="email"], #middle input[type="password"] {
+	border: #406298 solid 2px;
+	margin-top: 5px;
+	margin-bottom: 5px;
 }
 #middle #content {
 	font-size: 14px;
 	font-family: 'Optima' , Helvitica, Ariel, sans-serif;
+	
 }
 img{
-	width: 100%;
+	width: 99%;
 	z-index: 1;
-	border-radius: 50px;
+	border: 3px white solid;
 	position: relative;
 	background-color: #B1440e;
 
@@ -190,6 +211,10 @@ img{
 	background-color: #dcf4f0;
 	text-align: center;
 }
+#left form, #right form{
+padding: 0;
+margin: 0;
+}
 #error_message{
     color: orange;
 }
@@ -197,7 +222,7 @@ img{
 #editing{
 	position: fixed;
 	z-index: 1;
-	background-color: #f6fced;
+	background-color: white; //#f6fced;
 	padding-bottom: 20px;
 	padding-top: 30px;
 	padding-left:  50px;
@@ -205,8 +230,11 @@ img{
 	border-top-right-radius: 100px;
 	border-top-left-radius: 100px;
 	width: 56%;
-	left: 18%;
+	left: 18.3%;
 	bottom: 0;
+	border-top: 3px solid #c4d3ea;
+	border-left: 3px solid #c4d3ea;
+	border-right: 3px solid #c4d3ea;
 }
 select {
 
@@ -220,7 +248,7 @@ input:required {
 
 
 #middle #content input, #middle #content .button{
-	width: 5em;
+	width: 3.5em;
 	display: inline;
 }
 

@@ -23,13 +23,13 @@
 function load_all_shows()
 {
     global $mysqli;
-    print_message("show name");
+    //print_message("show name");
     //feilds:
     $query = "SELECT * FROM shows ORDER BY show_name";
     $results = $mysqli->query($query);
     
     //print header
-    
+    table_start();
     echo(          hline(array(hcell("Show Name","show_name"),
                     hcell("Description", "show_desc"),
                     hcell("Website", "show_website"))));
@@ -52,6 +52,7 @@ function load_all_shows()
                 )
              );
     }
+    table_stop();
 }
 
 function load_all_artists()
@@ -652,11 +653,14 @@ LIMIT 0 , 30";
                             cell($audit, "form audit_record aux")
         ));
     }
-    $older = "<a href\"schedule.php?before=$oldest\" class = \"button\">Previous</a>";
-    $newer = "<a href\"schedule.php?after=$newest\" class = \"button\">Next</a>";
-    
+    $older = "<a href\"schedule.php?before=".urlencode($oldest)."\" class = \"oldest \">Previous</a>";
+    $newer = "<a href\"schedule.php?after=".urlencode($newest)."\" class = \" newest \">Next</a>";
+    //echo("<br />");
+    //echo("<br />");
+    echo("<p></p>");
     echo($older);
     echo($newer);
+    echo("<br />");
     table_start();
     echo(hline(array(
         hcell("Start", "datetime set_start"),
@@ -670,6 +674,8 @@ LIMIT 0 , 30";
         hcell("Record", "aux form email_record"))));
     echo($sets);
     table_stop();
+
+    echo("<p></p>");
     echo($older);
     echo($newer);
     if (true || aux()){

@@ -5,7 +5,7 @@ $pageTitle = "Schedule";
 //this pages url
 $GLOBALS['base_url'] = "schedule.php";
 //page spec styles
-$styles = array();
+$styles = array("style/schedule.css");
 //page spec. scripts
 $scripts = array();
 //function called by content area

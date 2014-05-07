@@ -5,7 +5,7 @@ $pageTitle = "All Shows";
 //this pages url
 $GLOBALS['base_url'] = "all_show.php";
 //page spec styles
-$styles = array();
+$styles = array("style/all_show.css");
 //page spec. scripts
 $scripts = array();
 //function called by content area
