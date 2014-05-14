@@ -11,6 +11,8 @@ require_once "php/controller/initial_load.php";
     <link href="style/base.css" rel="stylesheet">
     <script src=
     "http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script type="text/javascript" src="script/jquery-ui-1.8.2.custom.min.js"></script> 
+	<script src="script/autocomplete_script.js"></script>
     <script src="script/base.js"></script>
     <?php 
         inc_style($styles); //load any page spec styles
@@ -18,6 +20,7 @@ require_once "php/controller/initial_load.php";
         setCSS(); //user state specific css
 
     ?>
+	<link rel="stylesheet" href="style/jquery-ui-1.8.2.custom.css" /> 
 </head>
 
 <body>

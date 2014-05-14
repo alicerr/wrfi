@@ -4,7 +4,7 @@
 		       value = "<?php echo(get_post("track_id")); ?>" />
 
 	<!--title and time info-->	
-        Track title: <input type="text" name="track_name"
+        Track title: <input type="text" name="track_name" id="sid_track_name"
 	value = "<?php echo(get_post("track_name")); ?>" required /><br />
 	
 	Starting time:
