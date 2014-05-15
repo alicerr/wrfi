@@ -15,14 +15,17 @@ Other: none
 function load_all_shows()
 {
     global $mysqli;
+    global $search;
     //print_message("show name");
     //feilds:
     $query = "SELECT * FROM shows ORDER BY show_name";
+    if ($search) $query = $search;
     $results = $mysqli->query($query);
     
     //print header
     table_title("Shows:");
     table_start();
+    //echo($query);
     echo(          hline(array(hcell("Show Name","show_name"),
                     hcell("Description", "show_desc"),
                     hcell("Website", "show_website"))));
@@ -66,6 +69,9 @@ function load_all_artists()
     //artist_desc
     //artist website
     $query = "SELECT * FROM artist";
+    global $search;
+    if ($search) $query = $search;
+   // echo($query);
     print_message("hello");
     table_start();
     $results = $mysqli->query($query);
@@ -204,6 +210,9 @@ function load_all_djs(){
     //dj_website
     //dj_shows <--shows the dj has played tracks on, link to show.php?show_name=$show_name
     $query = "SELECT dj_id, dj_name, dj_desc, dj_website, fname, lname, email FROM dj INNER JOIN user ON user.user_id = dj.user_id ORDER BY dj_name";
+    global $search;
+    if ($search) $query = $search;
+    //echo($query);
     $res = $mysqli->query($query);
     table_title("DJ/Hosts:");
     table_start();
@@ -788,6 +797,7 @@ function load_show()
         $query = str_replace("\n"," ", $query);
         $res = $mysqli->query($query);
         $djs = "";
+        
         if ($res->num_rows > 0){
             $djs = "Affiliated DJ/Hosts, Past and Present:</h2>";
             while($r = $res->fetch_assoc())
@@ -819,7 +829,7 @@ function load_show()
             
             while($r = $res->fetch_assoc())
             {
-                $set_start = $r["set_start"];
+                $set_start = local_link($r["set_start"], "set.php?set_id=".$r["set_id"]);
                 $set_end = $r["end_time"];
                 $set_desc = local_link($r["set_desc"], "set.php?set_id=".$r["set_id"]);
                 $set_link = world_link("", $r["set_link"]);

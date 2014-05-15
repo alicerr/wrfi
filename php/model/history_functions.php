@@ -15,7 +15,7 @@ Other:will not update the stack if the url is unmodified. will pull the last url
 */
     function update_history(){
         $last_page = get_session('this_pagewrfi');
-        $last_page_title = get_session('this_page_title');
+        //$last_page_title = get_session('this_page_title');
         global $base_url;
         global $pageTitle;
         $this_page = $base_url;
@@ -26,9 +26,10 @@ Other:will not update the stack if the url is unmodified. will pull the last url
         //$t= get_session('t');
         //print_message(is_array($t));
 
-        if (!$history_stack && $last_page && $last_page_title){
+        if (!$history_stack && $last_page ){
             
             $history_stack = array($last_page);
+            //echo("last_page");
             //$t = array($last_page_title);
             //set_session('t', $t);
             set_session('historywrf1', $history_stack);
@@ -36,9 +37,10 @@ Other:will not update the stack if the url is unmodified. will pull the last url
             
         }
         //save last page if diff. from this page and user did not press back
-        elseif ($last_page && $last_page_title && $last_page != $this_page && !$user_went_back)
+        elseif ($last_page  && $last_page != $this_page && !$user_went_back)
         {
             array_push($history_stack, $last_page);
+            //echo("last_page");
             //array_push($t, $last_page_title);
         }
         elseif($user_went_back){
@@ -87,7 +89,8 @@ Other:  none
         {
         $last = "";
         $history = get_session('historywrf1');
-        if ($history) $last = end($history);
+        
+        if ($history){ $last = end($history);}
                 //print_message("Last".$last."\n");
         return $last;
         }

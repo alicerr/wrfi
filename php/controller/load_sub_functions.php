@@ -36,9 +36,11 @@ function check_for_edits()
         reload_user_info();
         */
         $dj_id = get_post("dj_id");
+        
         $dj_desc = get_post("dj_desc");
         $dj_website = get_post("dj_website");
         $user_id = get_session("user_id");
+        $dj_name = get_post("dj_name");
         add_dj($dj_id, $dj_name, $user_id, $dj_desc, $dj_website);
         
     }
@@ -76,14 +78,17 @@ function check_for_edits()
         reload_user_info();
         */
         $email =get_post("email");
-        $old_password = get_post("password");
+        $password = get_post("password");
+        //echo($password);
         $confirm_password = get_post("confirm_password");
         $user_id = get_post("user_id");
         $lname = get_post("lname");
         $fname = get_post("fname");
         $phone = get_post("phone");
+        $user_id = get_post("user_id");
         $new_password = get_post("new_password");
-        update_user( $email, $fname, $lname, $phone, $new_password, $confirm_password, $old_password);
+        //echo("PP".$new_password."PP");
+        update_user($user_id, $email, $fname, $lname, $phone, $password, $new_password, $confirm_password);
         
         
     }
@@ -98,10 +103,13 @@ function check_for_edits()
         call:
         
         */
-        $set_end = get_post($set_end);
-        $set_start = get_post($set_start);
-        $set_id = get_post($set_id);
-        $show_name = get_post($show_name);
+        $set_end = get_post("set_end");
+        $set_start = get_post("set_start");
+        $set_id = get_post("set_id");
+        $show_name = get_post("show_name");
+        $set_desc = get_post("set_desc");
+        $set_link = get_post("set_link");
+        add_set( $set_id, $set_start, $set_end, $show_name, $set_desc, $set_link);
         
     }
     elseif (get_post("update_show"))
@@ -113,9 +121,11 @@ function check_for_edits()
         show_name
         call: add_show($show_name, $show_desc, $show_website)
         */
-        $add_show = get_post("add_show");
+        
         $show_website = get_post("show_website");
         $show_name = get_post("show_name");
+        $show_desc = get_post("show_desc");
+        
         add_show($show_name, $show_desc, $show_website);
         
     }
@@ -127,8 +137,9 @@ function check_for_edits()
         call: add_show_user($show_name, $email)
         */
         $show_name = get_post("show_name");
-        $user_email = get_post("user_email");
-        add_show_user($show_name, $email);
+        $user = get_post("user");
+        //echo($user."USER");
+        add_show_user($show_name, $user);
     }
     elseif (get_post("remove_show_user"))
     {
@@ -138,19 +149,22 @@ function check_for_edits()
         call: 
         */
         $show_name = get_post("show_name");
-        $user_email = get_post("user_email");
-        remove_show_user($show_name, $email);
+        $user_id = get_post("user");
+        remove_show_user($show_name, $user_id);
         
     }
     elseif (get_post("update_track"))
     {
         $start_date = get_post("start_date");
         $start_hour = get_post("start_hour");
+        $ap = get_post("start_am_pm");
+        //echo($ap);
+        if ($ap == "pm" && $start_hour) $start_hour = $start_hour + 12;
         $start_min = get_post("start_min");
         $start_sec = get_post("start_sec");
         
-        $start = new DateTime($start_date);
-        $start = date_time_set($start, $start_hour, $start_min, $start_sec);
+        $start = ($start_date." ".$start_hour.":$start_min:$start_sec");
+        echo($start);
            /*harvest:
         *track_id
         
@@ -198,8 +212,26 @@ function check_for_edits()
       $label_name = get_post("label_name");
       $label_website = get_post("label_website");
       $track_id = get_post("track_id");
-      add_track($track_id, $track_name, $artist_id, $artist_name, $album_id, $album_name, $label_name, $label_website, $album_id, $album_name, $album_website, $artist_id, $artist_name, $artist_website, $artist_desc);
+      $set_id = get_post("set_id");
       
+      
+      add_track_played($start, $duration, $length, 
+                       $set_id, $track_id, $track_name, $artist_id,
+                       $artist_name, $album_id, $album_name, $label_name,
+                       $label_website, $album_id, $album_name, $album_website,
+                       $artist_id, $artist_name, $artist_website, $artist_desc);
+    }
+    elseif (get_post("disable_user") && is_manager()){
+        disable_user(get_post("user_id"));
+    }
+    elseif (get_post("enable_user") && is_manager()){
+        enable_user(get_post("user_id"));
+    }
+    elseif (get_post("delete_set") && is_manager()){
+        delete_set(get_post("set_id"));
+    }
+    elseif (get_post("delete_track") && (is_manager() || is_user_show())){
+        delete_track(get_post("start"));
     }
     
 }
@@ -225,7 +257,7 @@ function load_edit_panel(){
         if ($dj_id)
         {
             global $mysqli;
-            $query = "";
+            $query = "SELECT * FROM dj WHERE dj_id = $dj_id";
             $res = $mysqli->query($query);
             if ($res)
             {
@@ -268,17 +300,19 @@ function load_edit_panel(){
     }
     elseif (get_post("edit_user")){
         $user_id = get_session("user_id");
+       
         if (get_post("user_id") && manager()) $user_id = get_post("user_id"); //managers can edit other users
         if ($user_id){
             $query = "SELECT * FROM user WHERE user_id = $user_id";
             global $mysqli;
             $res = $mysqli->query($query);
             if ($res){
-                $r= $res->fetch_assoc();
-                set_post("user_email", $r["user_email"]);
+                $r= $res->fetch_assoc(); 
+                set_post("email", $r["email"]);
                 set_post("fname", $r["fname"]);
                 set_post("lname", $r["lname"]);
                 set_post("phone", $r["phone"]);
+                set_post("user_id", $user_id);
             }
            /**query and set post data for user
             user_id
@@ -321,13 +355,14 @@ function load_edit_panel(){
     set_post("edit_panel", "php/panels/set_edit.php"); 
     }
     elseif(get_post("edit_show")){
-        $show_id = get_post("show_id");
-        if ($show_id){
+        $show_name = get_post("show_name");
+        if ($show_name){
              /*query and set:
          show_desc
         show_website
         show_name*/
              $query = "SELECT * FROM shows WHERE show_name = '$show_name'";
+             
              global $mysqli;
              $res = $mysqli->query($query);
              if ($res){
@@ -337,16 +372,17 @@ function load_edit_panel(){
                 set_post("show_website", $r["show_website"]);
              }
         }
+        set_post("edit_panel", "php/panels/show_edit.php"); 
     }
     elseif (get_post("edit_show_user") && manager()){
         set_post("edit_panel", "php/panels/edit_show_user.php"); 
     }
     elseif (get_post("edit_track"))
     {
-        $track_id = get_post("track_played");
-        $set_id = get_post("set_id");
-    
-        if ($track_id && (aux() || is_user_show()))
+        $start = get_post("start");
+       
+        //echo("edit track");
+        if ($start && (aux() || is_user_show()))
         {
             /*query and load
              *track_name
@@ -371,10 +407,11 @@ function load_edit_panel(){
                 artist_id
                 artist_name
                 artist_website*/
-            $query = "SELECT * FROM track_played LEFT OUTER JOIN track ON trac_played.track_id = track.track_id
+            $query = "SELECT * FROM track_played LEFT OUTER JOIN track ON track_played.track_id = track.track_id
             LEFT OUTER JOIN artist ON track.artist_id = artist.artist_id
             LEFT OUTER JOIN album ON track.album_id = album.album_id
-            LEFT OUTER JOIN label ON album.label_name = label.label_name WHERE start = $track_played";
+            LEFT OUTER JOIN label ON album.label_name = label.label_name WHERE start = '$start'";
+            //echo($query);
             global $mysqli;
             $res = $mysqli->query($query);
             if ($res){
@@ -384,24 +421,31 @@ function load_edit_panel(){
                 $hold = explode(" ", $start);
                 $big = explode("-", $hold[0]);
                 $small = explode(":", $hold[1]);
-                set_post("start_hour", $small[0]);
+                $start_hour = $small[0];
+                if ($start_hour >  12){
+                    $start_hour = $start_hour - 12;
+                    set_post("start_am_pm", "pm");
+                    
+                }
+                set_post("start_hour", $start_hour);
                 set_post("start_min", $small[1]);
                 set_post("start_sec", $small[2]);
-                set_post("start_day", $big[2]);
-                set_post("start_month", $big[1]);
-                set_post("start_year", $big[0]);
+                set_post("start_date", sql_to_form_date($r["start"]));
                 
                 $dur = $r["duration"];
                 $dur = explode(":", $dur);
+                if ($dur){
                 set_post("duration_min", $dur[0]*60 + $dur[1]);//mins
                 set_post("duration_sec", $dur[2]);
-                
+                }
                 $length = $r["length"];
+                
                 $l = explode(":", $length);
+                if ($length){
                 set_post("length_hour", $l[0]);
                 set_post("length_min", $l[1]);
                 set_post("length_sec", $l[2]);
-                
+            }
                 set_post("album_id", $r["album_id"]);
                 set_post("album_website", $r["album_website"]);
                 set_post("album_name", $r["album_name"]);
@@ -425,6 +469,11 @@ function load_edit_panel(){
             
         }
         set_post("edit_panel", "php/panels/track_edit.php"); 
+    }
+    elseif (get_post("reset_password")){
+        
+        $email = get_post("email");
+        reset_password($email);
     }
     
 }

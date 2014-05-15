@@ -16,6 +16,16 @@ require_once "php/controller/initial_load.php";
         inc_style($styles); //load any page spec styles
         //inc_script($scripts); //load any page spec scripts
         setCSS(); //user state specific css
+        
+        echo("<style>");
+            if (!aux())
+            echo(".aux{ display: none; }");
+            if (!manager())
+            echo(".manager{ display: none; }");
+            if (!dj())
+            echo(".dj{ display: none; }");
+             
+        echo("</style>");
 
     ?>
 </head>
@@ -31,7 +41,7 @@ require_once "php/controller/initial_load.php";
                 <form id="search_form" action="search.php" method="get"> <!-- FILL IN ACTION="" -->
                     <input type="text" name="search" />
                     Search by: <select name="type" >
-                        <option value="all">All</option>
+                        <!--<option value="all">All</option>-->
                         <option value="dj">DJs and hosts</option>
                         <option value="artist">Artists</option>
                         <option value="show">Shows</option>
@@ -46,36 +56,45 @@ require_once "php/controller/initial_load.php";
         </div>
         <div class = "lower">
             <div id = "dj">
-                <div class = "cline">
-                    <div id ="logged_in_dj" class = "logged_in" >
-                        <!--dj in form here-->
-                        <!-- display dj's name -->
-                                               
-                       <form method = "post">
-                           <input type = "submit" name="edit_track" value="Add track" />
-                       </form>
-                        <h3>
-                            <?php
-                            //prints out selected dj name with a link to the dj page
-                            $dj_name = get_session('current_dj_name');
-                            $dj_id = get_session('current_dj_id');
-                            if ($dj_id) $dj_id = "dj.php?dj_id=".$dj_id;
-                            echo(local_link($dj_name, get_link(get_global("base_url"), "dj_id", $dj_id)));
-                            echo("DJ Awesome");
-                            ?>
-                        </h3>
+            <?php 
+            if (logged_in())
+            {
+                echo('
+                
+                    <div class = "cline">
+                        <div id ="logged_in_dj" class = "logged_in" >
+                            <!--dj in form here-->
+                            <!-- display djs name -->
+                                                   
+                           <form method = "post">
+                               <input type = "submit" name="edit_track" value="Add track" />
+                           </form>
+                            <h3>');
+                                
+                                //prints out selected dj name with a link to the dj page
+                                $dj_name = get_session('current_dj_name');
+                                $dj_id = get_session('current_dj_id');
+                                
+                                echo(local_link($dj_name,"dj.php?dj_id=$dj_id"));
+                            
+                            
+                       echo( '</h3>
                         <form method = "post">
                        <!-- dropdown to select DJ names for that user -->
                            <select name="dj_id">
-                               <option value = "1">DJ Awesome</option>
-                               <option value = "2">DJ Amazing</option>
-                               <?php
+                              ');
+                               
                                //drop menu of users dj names
-                                   //$dj_names = get_session("dj_names");
-                                   //$dj_ids = get_session("dj_ids");
-                                   //for ($i = 0; $i < count($dj_names); $i++)
-                                       //echo("<option value =\"".$dj_ids[$i]."\">".$dj_names[$i]."</option>");
-                                ?>
+                                   $dj_names = get_session("dj_names");
+                                   $dj_ids = get_session("dj_ids");
+                                   $current = get_session("current_dj_id");
+                                   for ($i = 0; $i < count($dj_names); $i++){
+                                        $selected = "";
+                                        if ($dj_ids[$i] == $current ) $selected = " selected ";
+                                        
+                                       echo("<option value =\"".$dj_ids[$i]."\" ".$selected.">".$dj_names[$i]."</option>");
+                                   }
+                        echo('        
                                
                            </select>
                            <input type="submit" name="change_dj_name" value="Select DJ name" />
@@ -93,20 +112,26 @@ require_once "php/controller/initial_load.php";
                        <form  method="post"> 
                            <input type="submit" value="Log out" name="logout" />
                        </form>
-    
-                
+                    
+                    
                     </div>
-                    <div id = "logged_out_dj" class = "out">
+                    </div>');
+            }
+            else{
+                    echo(' <div id = "logged_out_dj" class = "out">
+                         <div id = "cline">
                         <!--logged out form here-->
                         
-                        <!--<form  method="post"> 
-                            Email: <input type="email" name="user" required />
+                        <form  method="post"> 
+                            Email: <input type="email" name="email" required />
                             Password: <input type="password" name="password" />
                             <input type="submit" value="Log in" name="login" />
                             <input type="submit" name = "reset_password" value="Forgot password" /> <!-- LINK -->
-                        <!--</form>-->
+                        </form>
                     </div>
-                </div>
+                    </div>');
+            }?>
+                
             </div>
         </div>
     </div>
@@ -125,6 +150,7 @@ require_once "php/controller/initial_load.php";
             <?php content_function(); //calls gen. content function for each page ?>
 
         </div>
+        <div id = "editing1">
         <div id = "editing">
             <!--editing panel to hold various things-->
             
@@ -132,6 +158,7 @@ require_once "php/controller/initial_load.php";
                     if($edit_panel) require_once $edit_panel;
                 //this is set during the page load by load_edit_panel();
             ?>
+        </div>
         </div>
     </div>
     <div id = "right">
@@ -152,8 +179,13 @@ require_once "php/controller/initial_load.php";
                 
             </div>
         </div>
+    
         <div class = "lower">
+            <?php
+            if (aux()){
+            echo('
             <div id = "manager" class = "manager">
+                
                 <div class = "cline">
                 <!--manager console here-->
                 <form method = "post" action = "schedule.php">
@@ -172,13 +204,16 @@ require_once "php/controller/initial_load.php";
                  <a href="all_user.php" class="button">View all users</a>  
                     
                 </div>
-            </div>
+            </div>');
+            } ?>
+            
+           
         </div>
         </div>
-          <div id = "message_block">
+        <div id = "message_block">
             <!--messages to user drawn here-->
 		
-                <?php print_message("Example of success message feedback"); print_error_message("Example of error message feedback"); draw_message(); ?>
+                <?php draw_message(); ?>
              <div id = "jsmessage"></div>
         </div>  
 

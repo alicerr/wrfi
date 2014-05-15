@@ -1,7 +1,10 @@
 $(document).ready(function () {
   $('#message_block').click(function(e){
-     $('#message_block').slideUp(); }); 
-          
+     $('#message_block').slideUp(); });
+  //$('#editing').slideDown();
+  //$('#middle').click(function(e){
+     //$('#editing').slideDown();
+     //});        
 
   /*$("#close_sides").click(function () {
 

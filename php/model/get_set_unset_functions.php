@@ -40,16 +40,42 @@
             $string = strip_tags($string);
             $string = trim($string);
             $string = (mysql_real_escape_string($string));
+            $i = stripos($string, ("\\\\"));
+            while($i > -1){
+                $string = str_replace("\\\\", "\\", $string);
+                                      $i = stripos($string, ("\\\\"));
+            }
+            $i = stripos($string, ("\\\"\\\""));
+            while($i > -1){
+                $string = str_replace("\\\"\\\"", "\\\"", $string);
+                                      $i = stripos($string, ("\\\\"));
+            }
+            $i = stripos($string, ("\\'\\'"));
+            while($i > -1){
+                $string = str_replace("\\'\\'", "\\'", $string);
+                                      $i = stripos($string, ("\\\\"));
+            }
+            
         }
         return $string;
     }
-    
+    function not_null($thing){
+        if ($thing) return "'$thing'";
+        else return "NULL";
+    }
     function set_session($name, $arg){
     
             $arg = clean($arg);
             if ($arg) $_SESSION[$name] = $arg;
             return $arg;
       
+    }
+    function array_find($val, $arr){
+        $found = false;
+        if (is_array($arr))
+            foreach($arr as $a)
+               $found = $found || ($a == $val);
+        return $found;
     }
     function get_session($name){
        if (isset($_SESSION[$name])) return $_SESSION[$name];

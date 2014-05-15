@@ -13,24 +13,7 @@
  *
  */
 
-/*
-Purpose: warn a dj if they are trying to edit a show/set/track they are not affiliated with 
-Input: boolean
-Output:none
-Accesses: none
-Modifies: none
-Visual effects:
-    message: none
-    error message: if false then warns user
-Database effects: none
-Other: none
-*/
-function is_right_dj($right)
-    {
-    warn($right, "please log in as a DJ with access to this to continue.");
-    return $right;
-    }
-    
+
 /*
 Purpose: warn a user if they are trying to do something dj+ level, and are not logged
 Input: none
@@ -46,6 +29,7 @@ Other: none
 function is_dj()
     {
     $right = dj();
+    
     warn($right, "please log in as a DJ with access to this to continue.");
     return $right;
     }
@@ -121,7 +105,7 @@ function print_error_message($message)
     {
         
     //if other messages are in que then this one is appended
-    set_global("error_message", get_global('error_message')."$message");
+    set_global("error_message", get_global('error_message')."BREACK"."$message");
     }
 /*
 Purpose: adds message to messages in printing queue GLOBAL[message]
@@ -138,7 +122,7 @@ Other: none
 function print_message($message)
     {
     //if other messages are in que then this one is appended
-    set_global("message", get_global('message')."$message");
+    set_global("message", get_global('message')."BREACK"."$message");
     }
   
 /*
@@ -156,10 +140,24 @@ Other: used to wrap database insertions/updates
 function op_feedback($op, $succ_message, $fail_message)
 {
     if ($op && $succ_message)
-        print_message($suc_message);
+        print_message($succ_message);
     elseif ($fail_message)
         print_error_message($fail_message);
     return $op;
 }
+function feedback_op($op, $succ_message, $fail_message)
+{
+   return op_feedback($op, $succ_message, $fail_message);
+}
+function is_user_show(){
+    return ((get_post("show_name") && array_find(get_post("show_name"), get_session("shows"))) ||
+            (get_post("set_id") && array_find(get_post("set_id"), get_session("set_ids"))));
+}
+function is_user_show_get(){
+    return ((get_get("show_name") && array_find(get_get("show_name"), get_session("shows"))) ||
+            (get_get("set_id") && array_find(get_get("set_id"), get_session("set_ids"))));
+}
+            
+            
 
 ?>

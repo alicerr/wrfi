@@ -79,13 +79,14 @@ $user_t = array("user_id", "user.email", "user.fname", "user.lname", "user.phone
 //search for dj only
 function search_dj($criteria){
     $guts = guts_of_search(array("dj.dj_name", "dj.dj_desc", "dj.dj_website"), $criteria);
-    $query = "SELECT DISTINCT dj_name, dj_id, user_id, dj_desc, dj_website
+    /*$query = "SELECT DISTINCT dj_name, dj_id, user_id, dj_desc, dj_website
             FROM dj
             INNER JOIN track_played
             ON track_played.dj_id = dj.dj_id
             $guts
-            ORDER BY COUNT(track_played.start_time)";
-    return query($query, false);
+            ORDER BY COUNT(track_played.start_time)";*/
+    set_post("search", $guts);
+   
     
 }
 
@@ -97,33 +98,39 @@ function search($mod, $feilds, $table_structure, $crit, $sort_crit){
 }
 //res for only show and set tables
 function search_only_show($criteria){
-    $crit = guts_of_search(array("shows.show_name", "shows.show_desc", "shows.show_website", "set.set_desc"), $criteria);
-    $feilds = "*";
-    $table_structure = " shows LEFT OUTER JOIN ON set WHERE set.show_name = shows.show_name ";
-    $sort_crit = "ORDER BY COUNT(set.set_id)";
-    return search(null, $feilds, $table_structure, $crit, $sort_crit);
+    $crit = guts_of_search(array("shows.show_name", "shows.show_desc", "shows.show_website", "sets.set_desc"), $criteria);
+    //echo($crit);
+    //$feilds = "*";
+    $table_structure = "SELECT * FROM shows LEFT OUTER JOIN  sets ON sets.show_name = shows.show_name ";
+    $sort_crit = "ORDER BY COUNT(sets.set_id)";
+    global $search;
+    $search =  $table_structure.$crit.$sort_crit;
 }
 //res only for dj, ordered by most recent track played
 function search_only_dj($criteria){
     $crit = guts_of_search(array("dj.dj_name", "dj.dj_desc", "dj.dj_website"), $criteria);
-    $feilds = "*";
-    $table_structure = "  FROM dj
-            LEFT_OUTER_JOIN track_played
-            ON track_played.dj_id = dj.dj_id ";
-    $sort_crit = "ORDER BY COUNT(track_played.start_time)";
-    return search(null, $feilds, $table_structure, $crit, $sort_crit);
+    //$feilds = "*";
+    $table_structure = "SELECT *  FROM dj
+            LEFT OUTER JOIN track_played
+            ON track_played.dj_id = dj.dj_id
+            INNER JOIN user
+            ON dj.user_id = user.user_id ";
+    $sort_crit = "GROUP BY dj.dj_id ORDER BY COUNT(track_played.start)";
+    global $search;
+    $search =  $table_structure.$crit.$sort_crit;
 }
 //search only artist
 function search_only_artist($criteria){
     $crit = guts_of_search(array("artist.artist_name", "artist.artist_desc", "artist.artist_website"), $criteria);
-    $feilds = "*";
-    $table_structure = "  FROM artist ";
+    
+    $table_structure = " SELECT * FROM artist ";
     $sort_crit = "ORDER BY artist.artist_name";
-    return search(null, $feilds, $table_structure, $crit, $sort_crit);
+    global $search;
+    $search = $table_structure.$crit.$sort_crit;
 }
 //search only track, album, label
 function search_only_track($criteria){
-    $crit = guts_of_search(array("track.track_name",
+    /*$crit = guts_of_search(array("track.track_name",
                                  "artist.artist_name",
                                  "album.album_name",
                                  "label.label_name",
@@ -131,15 +138,16 @@ function search_only_track($criteria){
                                  "label.label_website",
                                  "artist.artist_desc",
                                  "artist.artist_website"), $criteria);
-    $feilds = "*";
-    $table_structure = "  FROM track LEFT OUTER JOIN album ON track.album_id = album.album_id LEFT OUTER JOIN label ON album.label_name label.label_name ";
-    $sort_crit = " ORDER BY track.track_name";
-    return search(null, $feilds, $table_structure, $crit, $sort_crit);
+    $feilds = "*";*/
+    $query =  " SELECT * FROM track LEFT OUTER JOIN album ON track.album_id = album.album_id LEFT OUTER JOIN label ON album.label_name label.label_name $crit  ORDER BY track.track_name";
+    //$sort_crit = " ORDER BY track.track_name";
+    //return search(null, $feilds, $table_structure, $crit, $sort_crit);*/
+    set_post("search", $query);
 }
 //[shows, sets, djs, tracks, artists]
 
 //first attempt at search all
-function search_all($criteria){
+/*function search_all($criteria){
     
      $crit = guts_of_search(array("track.track_name",
                                  "artist.artist_name",
@@ -152,7 +160,7 @@ function search_all($criteria){
     $feilds = "*";
     $table_structure = "  FROM track LEFT OUTER JOIN album ON track.album_id = album.album_id LEFT OUTER JOIN label ON album.label_name label.label_name ";
     $sort_crit = " ORDER BY track.track_name";
-}
+}*/
 
     
     
@@ -166,7 +174,8 @@ function search_all($criteria){
  //(feild1 LIKE '%word3%' OR feil2 LIKE '%word3%' OR feild3 LIKE '%word3%')
 function guts_of_search($places_to_look, $string_to_find)
 {
-    $crit = preg_replace('/[^a-z0-9\']+/i', ' ', $crit);
+    //echo($string_to_find);
+    //$crit = preg_replace('/[^a-z0-9\']+/i', ' ', $string_to_find);
     $crit = clean($string_to_find);
     $crit = trim($crit);
     $crit = explode(' ', $crit);
@@ -179,7 +188,8 @@ function guts_of_search($places_to_look, $string_to_find)
         }
         array_push($hold, "( ".implode(" OR ", $hold_inner)." ) ");
     }
-    $guts = " WHERE ".$implode(" AND ", $hold)." ";
+    $guts = " WHERE ".implode(" AND ", $hold)." ";
+    return $guts;
     
 }
 ?>

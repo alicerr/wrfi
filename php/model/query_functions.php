@@ -3,7 +3,7 @@
 //grabs the last entered id from the database
 function last_id(){
     global $mysqli;
-    return $mysqli::mysqli_insert_id;
+    return $mysqli->insert_id;
 }
 
 //places a query, expresses errors if not suppress warnings
@@ -12,15 +12,16 @@ function last_id(){
 function query($query, $suppress_warnings){
     global $mysqli;
     $results = $mysqli->query($query);
-    $ret = null;
-    if ($results){
-        $ret = mysqli_fetch_assoc($results);
-        
+    //echo("check");
+    //echo($query);
+    //echo("check");
+    
+    if (!$results && !$suppress_warnings){
+        print_error_message("Database error: ", mysqli_error($mysqli));
+        //echo("\n$query\n");
+        //print_error_message("FAILUREFAILFAIL");
     }
-    elseif (!$suppress_warnings){
-        print_error_message("Database error: ", $mysqli->error);
-    }
-    return $ret;   
+    return $results;   
 }
 
 //places a query wih query function only if manager

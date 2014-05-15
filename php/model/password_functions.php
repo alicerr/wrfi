@@ -19,19 +19,20 @@ function randomPassword() {
 function check_password($password){
         global $mysqli;
         $good = false;
-        $name = user_name();
-        if ($name){
-            $query = "SELECT * FROM user WHERE email = \"$name\"";
+        $user_id = get_session("user_id");
+        //echo($password);
+        if ($user_id){
+            $query = "SELECT * FROM user WHERE user_id = \"$user_id\"";
             $user_entry = $mysqli->query($query);
 
             if ($user_entry)
                 {
                 $user_entry = $user_entry->fetch_assoc();
-                if (isset($user_entry["user_password"]))
+                if (isset($user_entry["password"]))
                     {
                     $password = hash_it($password);
-
-                    $good = ($user_entry['user_password'] == $password);
+                    //echo($user_entry["password"]);
+                    $good = ($user_entry['password'] == $password);
                     if ($good) $good = $user_entry["level_id"];
                 }
             }
@@ -41,8 +42,57 @@ function check_password($password){
 }
 function hash_it($string){
     
-    //return hash('sha256', $password . "yadayadayada");
-    return($string);
+    return hash('sha256', $string . "yadayadayada");
+    //return($string);
+}
+function reset_password($email){
+    global $mysqli;
+    $query = "SELECT * FROM user WHERE email = '$email'";
+    //echo($query);
+    if ($email){
+        $res = $mysqli->query($query);
+        
+        if (warn(mysqli_num_rows($res) > 0, "user not found")){
+            
+            $r = $res->fetch_assoc();
+            $pw = randomPassword();
+            $password = hash_it($pw);
+            //print_message("here2");
+            $user_id = $r["user_id"];
+            $query =  "UPDATE user
+                        SET password = '$password'
+                        WHERE user_id = $user_id";
+                        
+            $changed = feedback_op(query($query, false),
+            "new password emailed", "password not changed");
+            echo($pw);
+        
+            if ($user_id && $changed){
+                
+                //print_message("here");
+                
+                $fname = $r["fname"];
+                $subject = "Hello from WRFI radio!";
+                $body = "Dear $fname\n
+                    \n
+                    \n
+                    \nYour new password is:
+                    \n$pw
+                     \nIf you feel this email was generated in error, 
+                
+                    \nplease contact a program manager
+                    
+                    \n
+                    \n
+                    \nHave a wonderful day!
+                    \n
+                    \nSincerely,
+                    \n
+                    \nThe WRFI Site Robot";
+            email($subject, $body, $email);
+        }
+    }
+    }
 }
 
 ?>

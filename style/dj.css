@@ -83,3 +83,6 @@ white-space: nowrap;
 .link, .website{
     text-align: center;
 }
+.dj_show{
+   display: none;
+}

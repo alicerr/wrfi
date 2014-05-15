@@ -5,22 +5,30 @@
     width: 99%;
     position: relative;
     left: .5%;
+    text-align: center;
+	
+	
     
 }
+
 
 .blocktext {
         width: 80%;
     position: relative;
     left: 10%;
+    text-align: left;
+}
+#middle .table_title{
+   text-align: left;
 }
 .table{
     table-layout: fixed;
     display: table;
-    width: 90%;
+    width: 99%;
     margin-top: 30px;
     margin-bottom: 50px;
 white-space: nowrap;
-    left: 5%;
+    left: .5%;
     position: relative;
     
 
@@ -35,7 +43,7 @@ white-space: nowrap;
    
 }
 .cell{
-    width: 17.5%;
+    width: 20%;
     max-height: 35px;
     display: table-cell;
     vertical-align: middle;
@@ -84,3 +92,4 @@ white-space: nowrap;
 .link, .website{
     text-align: center;
 }
+
