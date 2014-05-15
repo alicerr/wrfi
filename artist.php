@@ -6,7 +6,7 @@ $pageTitle = "Artist";
 //this pages url
 $GLOBALS['base_url'] = "artist.php?artist_id=".clean(get_get("artist_id"));
 //page spec styles
-$styles = array();
+$styles = array("style/artist.css");
 //page spec. scripts
 $scripts = array();
 //function called by content area

@@ -25,7 +25,9 @@
     function hcell($guts, $class){
         return("\n<div class = \"hcell cell $class\" >\n\t$guts\n</div>");
     }
-    
+    function table_title($title){
+        echo("\n<h2 class = \"table_title\" >$title</h2>\n");
+    }
     function table_start(){
         echo("<div class = \"table\">");
     }

@@ -1,10 +1,18 @@
 <?php
-    //this page records pages the user visted, to help site nav
+//FINISHED
+/*functions that handle keeping track of user history
+ */
 
-    //updates history keeping functions
-    //ACCESSES: SESSION: 'this_page', 'this_page_title', 'history', 'title_history'
-    //            GLOBALS: 'base_url', 'page_title'
-    //Modifies: SESSION: 'this_page', 'this_page_title', 'history', 'title_history' (title history is not in use yet)
+ /*
+Purpose:updates the history stack after a navigation event
+Input:none
+Output:none
+Accesses:history stacks
+Modifies:history stacks
+Visual effects:none
+Database effects:none
+Other:will not update the stack if the url is unmodified. will pull the last url off the history stack if POST[back] is set
+*/
     function update_history(){
         $last_page = get_session('this_pagewrfi');
         $last_page_title = get_session('this_page_title');
@@ -46,10 +54,16 @@
         //print_message($this_page_title."page");
         
     }
-    //clears history, for use on logout
-    //must be called before update_history() (above) to behave as expected
-    //ACCESSES: GLOBALS: 'base_url', 'page_title'
-    //Modifies SESSION: 'this_page', 'this_page_title', 'history', 'title_history'
+/*
+Purpose: clear user history
+Input: none
+Output: none
+Accesses:  story stacke
+Modifies:   deletes history stack
+Visual  effects:none
+Database    effects:none
+Other:  none
+*/
     function clear_history()
     {
         set_session('history', null);
@@ -59,11 +73,16 @@
         set_session('this_page', $this_page);
         set_session('this_page_title', $this_page_title);
     }
-    
-    //retrieves the last distinct page change
-    //INPUT: none 
-    //VISIBLE ACTION: none
-    //OUTPUT: url if found, null if not
+/*
+Purpose: retrives url of last page visited for back button
+Input: none
+Output: none
+Accesses:  history stack
+Modifies:   deletes history stack
+Visual  effects:none
+Database    effects:none
+Other:  none
+*/
     function get_last_url()
         {
         $last = "";
@@ -73,10 +92,16 @@
         return $last;
         }
     
-    //finds the tile of the last distint page change
-    //INPUT: none 
-    //VISIBLE ACTION: none
-    //OUTPUT: url if found, null if not
+/*
+Purpose: clear user history
+Input: none
+Output: none
+Accesses:  story stacke
+Modifies:   deletes history stack
+Visual  effects:none
+Database    effects:none
+Other:  none
+
     function get_last_title()
         {
         $last = "";
@@ -85,5 +110,5 @@
 
         return $last;
     
-        }
+        }*/
 ?>

@@ -1,25 +1,17 @@
 <?php
-//Content loading functios, largly using line content
-//will call various queries and view functions to draw each part of a site,
-//View functions:
-//draw_line($cell_string_array),
-//draw_cell($string, $class_array),
-//make_link($string, $link)
-//make_tiny_form($submit_name, $submit_value, $hide_name, $hide_value)
-//make_block($title, $sub_heading, $text)
-//draw_heading($heading_cell_string_array)
-//draw_heading_cell
-
-//the feilds of each function are described
-//often lines will link to an entity page with an
-//editing button for the right users, so if something
-//looks like it should be editable consider the links
-//available first.
-
-//each of this functions is called by a single page, and corelates to that pages content
+/*Content load functions, called by middle panel of content page*/
 
 
-//print all shows
+/*
+Purpose: load conent section for all shows
+Input:none
+Output:none
+Accesses: database
+Modifies: none
+Visual effects: loads all shows
+Database effects: none
+Other: none
+*/
 function load_all_shows()
 {
     global $mysqli;
@@ -29,6 +21,7 @@ function load_all_shows()
     $results = $mysqli->query($query);
     
     //print header
+    table_title("Shows:");
     table_start();
     echo(          hline(array(hcell("Show Name","show_name"),
                     hcell("Description", "show_desc"),
@@ -54,7 +47,16 @@ function load_all_shows()
     }
     table_stop();
 }
-
+/*
+Purpose: load content, all artists played by station
+Input:none
+Output:none
+Accesses: database
+Modifies: none
+Visual effects: loads content into window
+Database effects: none
+Other: none
+*/
 function load_all_artists()
 {
     global $mysqli;
@@ -67,6 +69,7 @@ function load_all_artists()
     print_message("hello");
     table_start();
     $results = $mysqli->query($query);
+    table_title("Artists Played:");
     echo(          hline(array(hcell("Name","name artist_name"),
                     hcell("Description", "desc artist_desc"),
                     hcell("Website", "website artist_website"))));
@@ -85,7 +88,16 @@ function load_all_artists()
     table_stop();
     
 }
-
+/*
+Purpose: load all users information into window
+Input:none
+Output:none
+Accesses: database
+Modifies: none
+Visual effects: loads all users
+Database effects: none
+Other: only acessible by aux+ users
+*/
 function load_all_users(){
     if (true || aux()){
         global $mysqli;
@@ -101,6 +113,7 @@ function load_all_users(){
         //phone
         //associated shows <-link show.php?show_id=$show_id
         table_start();
+        table_title("Volunteers:");
         echo(hline(array(
                     hcell("Name", "fname"),
                     hcell("", "lname"),
@@ -172,7 +185,16 @@ function load_all_users(){
         table_stop();
     }
 }
-
+/*
+Purpose: load all djs content
+Input:none
+Output:none
+Accesses: database
+Modifies: none
+Visual effects: loads content into window
+Database effects: none
+Other: none
+*/
 function load_all_djs(){
     global $mysqli;
     
@@ -181,9 +203,11 @@ function load_all_djs(){
     //dj_desc
     //dj_website
     //dj_shows <--shows the dj has played tracks on, link to show.php?show_name=$show_name
-    $query = "SELECT dj_id, dj_name, dj_desc, dj_website, fname, lname, email FROM dj INNER JOIN user ON user.user_id = dj.user_id";
+    $query = "SELECT dj_id, dj_name, dj_desc, dj_website, fname, lname, email FROM dj INNER JOIN user ON user.user_id = dj.user_id ORDER BY dj_name";
     $res = $mysqli->query($query);
+    table_title("DJ/Hosts:");
     table_start();
+    
      echo(hline(array(
                     hcell("DJ/Host", "dj_name name" ),
                     hcell("About", "dj_desc desc"),
@@ -218,7 +242,18 @@ function load_all_djs(){
 }
 
 
-
+/*
+Purpose: load content for a single set
+    BLOCK: set attributes
+    LINE: tracks played on set
+Input:none
+Output:none
+Accesses: database
+Modifies: none
+Visual effects: loads content into window
+Database effects: none
+Other: set to load is determined by set_id in GET
+*/
 function load_set(){
     global $mysqli;
     //BLOCK:
@@ -226,22 +261,23 @@ function load_set(){
     //set_desc
     //set_link
     $set_id = get_get("set_id");
-    $query = "SELECT * FROM sets INNER JOIN shows ON sets.show_name = shows.show_name WHERE set_id = $set_id";
+    $query = "SELECT set_id, set_desc, set_link, sets.show_name, set_start, TIME(set_end) as endtime FROM sets INNER JOIN shows ON sets.show_name = shows.show_name WHERE set_id = $set_id";
     $res = "";
-
+    
     if ($set_id) $res = $mysqli->query($query);
     
     if ($res && $res->num_rows > 0){
         $r = $res->fetch_assoc();
         $set_id = $r["set_id"];
         $set_desc = $r["set_desc"];
-        $set_link = world_link("", $r["set_link"]);
+        $set_link = $r["set_link"];
+        if ($set_link) $set_link = world_link("Audio link", $set_link);
         $set_start = $r["set_start"];
-        $set_end = $r["set_end"];
+        $set_end = $r["endtime"];
         $show_name = $r["show_name"];
         $show_name = local_link($show_name, "show.php?show_name=".urlencode($show_name));
         $edit = "";
-        if (true || aux() || is_show_user($show_name))
+        if (false || aux() || is_show_user($show_name))
         {
         //form w/ set_id hiddin and name = "edit_set"
             $edit = tiny_form("edit_set", "Edit", "set_id", $set_id );
@@ -251,7 +287,7 @@ function load_set(){
             }
         }    
         //print block
-        echo(block($show_name, "START: ".$set_start."</br>END: ".$set_end, $set_desc, $set_link, $edit));
+        echo(block($show_name, "Airtime: ".$set_start." -- ".$set_end, $set_desc, $set_link, $edit));
                 $query ="SELECT track.track_id,
                     TIME(start) as start_time,
                     start, track_name,
@@ -282,6 +318,7 @@ function load_set(){
 
         $res = $mysqli->query($query);
         if ($res->num_rows > 0){
+            table_title("Tracks Played:");
             table_start();
             echo(hline(array(
                              hcell("Start", "time start"),
@@ -289,8 +326,8 @@ function load_set(){
                              hcell("Name", "track_name name"),
                              hcell("Artist", "artist_name name audit"),
                              
-                             hcell("Album", "album_name name"),
-                             hcell("Label", "label_name name"),
+                             //hcell("Album", "album_name name"),
+                             //hcell("Label", "label_name name"),
                              hcell("Played By", " dj_name name" ),
                              hcell("Edit", "edit dj_show form "),
                              hcell("Delete", "dj_show delete form")
@@ -317,8 +354,8 @@ function load_set(){
                 cell($duration, "duration time"),
                 cell($track_name, "track_name name"),
                 cell($artist_name, "artist_name name"),
-                cell($album_name, "album name name"),
-                cell($label_name, "label_name name"),
+                //cell($album_name, "album name name"),
+                //cell($label_name, "label_name name"),
                 cell($dj_name, "dj_name name"),
                 cell($edit, "edit dj_show"),
                 cell($delete, "delete dj_show")
@@ -335,21 +372,21 @@ function load_set(){
         
     
     
-    //LINE:
-    //set_tracks
-        //start
-        //track_name
-        //artist <--link artist?artist_id=$artist_id
-        //album <--link album_website
-        //label <--link label_website
-        //dj <--link dj_website
-        //duration
 
-        //form w/ start hiddin and name = "edit_track"
-        //form w/ start hiddin and name = "delete_track"
 
 }
-
+/*
+Purpose: load content for a single artist
+    BLOCK: artists attributes
+    LINE: tracks played by artist, in order of recency
+Input:none
+Output:none
+Accesses: database
+Modifies: none
+Visual effects: loads content into window
+Database effects: none
+Other: artist to load is determined by artist_id in GET
+*/
 function load_artist()
 {
         global $mysqli;
@@ -368,7 +405,7 @@ function load_artist()
             if (dj())
                 $edit = tiny_form("edit_artist", "Edit", "artist_id", $artist_id);
                  //form w/ set_id hiddin and name = "edit_artist"
-            
+            echo(block($artist_name, "", $r["artist_desc"], "", $edit));
             $query ="SELECT track.track_id,
                     TIME(start) as start_time,
                     start, track_name,
@@ -376,6 +413,7 @@ function load_artist()
                     album_name,
                     label.label_name,
                     album_website,
+                    artist_name,
                     label_website, duration,
                     dj.dj_id,
                     length,
@@ -401,6 +439,8 @@ function load_artist()
 
                     $res = $mysqli->query($query);
                 if ($res && $res->num_rows > 0){
+            $r = $res->fetch_assoc();
+            table_title("Recently Played Tracks by ".$r["artist_name"].":");
             table_start();
             echo(hline(array(
                             
@@ -408,18 +448,19 @@ function load_artist()
                              hcell("Album", "album_name name"),
                              hcell("Label", "label_name name"),
                              
-                             hcell("Length", "time duration"),
-                             hcell("Last Play", "datetime start"),
-                             hcell("On", "Show_name name"),
-                             hcell("Set", "set_id website"),
+                             //hcell("Length", "time duration"),
+                             //hcell("Last Play", "datetime start"),
+                             hcell("On Show", "Show_name name"),
+                             hcell("Set Link", "set_id website"),
                              hcell("Played By", " dj_name name" ),
                             
                              
                             )));
-            while($r = $res->fetch_assoc()){
+            $i = 1;
+            while($r){
                 
                 
-
+                
                 $track_name = local_link($r["track_name"], "search.php?search=".urlencode($r["track_name"])."&amp;type=all&amp;submit_search=Search");
 
                 $album_name = world_link($r["album_name"], $r["album_website"]);
@@ -435,15 +476,15 @@ function load_artist()
                 cell($track_name, "track_name name"),
                 cell($album_name, "album name name"),
                 cell($label_name, "label_name name"),
-                cell($length, "length time"),
-                cell($start, "datetime time"),
+                //cell($length, "length time"),
+                //cell($start, "datetime time"),
                 cell($show_name, "show_name name"),
                 cell($set, "set_link link"),  
                 cell($dj_name, "dj_name name")
 
                 
             )));
-            
+            $r = $res->fetch_assoc();
         }
         table_stop();
         }
@@ -469,7 +510,18 @@ function load_artist()
     
 }
 }
-
+/*
+Purpose: load content for a single DJ/Host
+    BLOCK: DJ attributes
+    LINE: tracks played by DJ
+Input:none
+Output:none
+Accesses: database
+Modifies: none
+Visual effects: loads content into window
+Database effects: none
+Other: dj to load is determined by dj_id in GET
+*/
 function load_dj(){
     global $mysqli;
     //BLOCK:
@@ -515,7 +567,9 @@ function load_dj(){
                  
                     $res = $mysqli->query($query);
                 if ($res && $res->num_rows > 0){
+                    table_title("Recent Activity:");
                     table_start();
+                    
                     echo(hline(array(
                                     
                                      
@@ -525,7 +579,7 @@ function load_dj(){
                                      hcell("Track", "track_name name"),
                                      hcell("Artist", "artist_name name audit"),
                                      hcell("Album", "album_name name"),
-                                     hcell("Label", "label_name name"),
+                                     //hcell("Label", "label_name name"),
                                     
                                      hcell("Edit", "edit dj_show form "),
                                      hcell("Delete", "dj_show delete form")
@@ -560,7 +614,7 @@ function load_dj(){
                 cell($track_name, "track_name name"),
                 cell($artist_name, "artist_name name"),
                 cell($album_name, "album name name"),
-                cell($label_name, "label_name name"),
+                //cell($label_name, "label_name name"),
                 
                 cell($edit, "edit dj_show"),
                 cell($delete, "delete dj_show")
@@ -579,7 +633,16 @@ function load_dj(){
 
     }
 }
-
+/*
+Purpose: load schedule
+Input:none
+Output:none
+Accesses: database
+Modifies: none
+Visual effects: loads content into window
+Database effects: none
+Other: if get "after" or "before" is set , tracks are loaded after or before a givin point. Unicode time expected.
+*/
 function load_schedule()
 {
     global $mysqli;
@@ -653,14 +716,16 @@ LIMIT 0 , 30";
                             cell($audit, "form audit_record aux")
         ));
     }
-    $older = "<a href\"schedule.php?before=".urlencode($oldest)."\" class = \"oldest \">Previous</a>";
-    $newer = "<a href\"schedule.php?after=".urlencode($newest)."\" class = \" newest \">Next</a>";
+    $older = "<a href\"schedule.php?before=".$oldest."\" class = \"oldest
+    \">Previous</a>";
+    $newer = "<a href\"schedule.php?after=".$newest."\" class = \" newest \">Next</a>";
     //echo("<br />");
     //echo("<br />");
-    echo("<p></p>");
-    echo($older);
-    echo($newer);
+    //echo("<p></p>");
+    //echo($older);
+    //echo($newer);
     echo("<br />");
+    table_title("Schedule");
     table_start();
     echo(hline(array(
         hcell("Start", "datetime set_start"),
@@ -675,19 +740,31 @@ LIMIT 0 , 30";
     echo($sets);
     table_stop();
 
-    echo("<p></p>");
+    
     echo($older);
     echo($newer);
+    echo("<br /><br />");
     if (true || aux()){
         echo('<form method = "post" class = "aux">Audit Spredsheet: <input type="date" name= "before" required /> to <input type="date" name="after" required /><input type = "submit" value = "Audit" /></form>');
     }
     //load schedule for next 7 days
 
-    //button link for "older"
+   // button link for "older"
     //button link for "newer"
     //link: schedule.php&before=$oldest, $newest (these may need to be in unicode date format)
 }
-
+/*
+Purpose: load content for a single show
+    BLOCK: show attributes
+    LINE: tracks played on set
+Input:none
+Output:none
+Accesses: database
+Modifies: none
+Visual effects: loads content into window
+Database effects: none
+Other: show to load is determined by set_name in GET (url safe version please)
+*/
 function load_show()
 {
            global $mysqli;
@@ -730,6 +807,7 @@ function load_show()
 
         $res = $mysqli->query($query);
          if ($res->num_rows > 0){
+            table_title("Sets:");
             table_start();
             echo(hline(array(
                 hcell("Start", "datetime set_start"),

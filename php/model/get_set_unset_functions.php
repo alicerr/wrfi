@@ -1,20 +1,34 @@
 <?php
-    //one cleaner and getters, setters, and unsetters for
-    //GET/POST/SESSION/GLOBAL
-    //FORMAT: get/set/unset_post/session/get/global(name, [value])
-    //three admin level functions:
-    //manager(), aux(), dj() which return true if user is at least tat level
-    
-    //getters return null if value is not set, or a cleaned value
-    //setters return cleaned string
-    //unset does not return
-
-
-    //cleans strings, or arrays of strings for html and sql safety
-    //INPUT: anything
-    //VISIBLE ACTION: none
-    //OUTPUT: cleaned string (may be null) if a string or string array,
-    //wont touch non-strings
+//FINISHED
+    /*One cleaning function for strings or arrays of strings,
+     *sanitiving them for site use
+     *
+     *the reast of these are getters, setters, and unsetters
+     *for global/session/post/get. This allows getters to
+     *simply return null if something is unset,
+     *and streamlines the cleaning of code throughout the
+     *site, reducing errors.
+     *
+     *Because all of these functions are very standard I will
+     *only provide templets.
+     *
+     *get_?
+     *Input: string name of variable to acess
+     *Output: null if unset, else the cleaned value of the variable
+     *
+     *set_?
+     *Input: sting variable name, string variable value
+     *Output: cleaned variable
+     *Note: cleans value before setting it
+     *
+     *unset_?
+     *Input: variable name to unset
+     *Output: none
+     *
+     *clean
+     *Input: String or array of strings
+     *Output: cleaned strig or array of strings
+     */
     
     function clean($string)
     {
@@ -31,8 +45,10 @@
     }
     
     function set_session($name, $arg){
-
-            $_SESSION[$name] = $arg;
+    
+            $arg = clean($arg);
+            if ($arg) $_SESSION[$name] = $arg;
+            return $arg;
       
     }
     function get_session($name){
@@ -76,15 +92,5 @@
     function unset_get(){
                 unset($_GET[$name]);
     }
-     //three admin level functions:
-    //manager(), aux(), dj() which return true if user is at least tat level
-    function aux(){ return get_session("user_level") && get_session("user_level") > 1;}
-    function manager(){ return get_session("user_level") && get_session("user_level") > 2;}
-    function dj(){ return get_session("user_level") && get_session("user_level") > 0;}
-    //is show of user
-    function is_show_user($show_name){
-        $shows = get_session("user_shows");
-            return $shows && in_array($show_name, $shows);
-    }
-    
+
 ?>

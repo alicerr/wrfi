@@ -1,84 +1,165 @@
 <?php
+//FINISHED
+/*
+ *this file contains the many warning messages and event triggers used to notify
+ *the user of exactly what went wrong. These are all written in php,
+ *in the message window.
+ *
+ *many of these functions are wrappers, passing content through them while reporting
+ *on conditions.
+ *
+ *these functions are used heavily throughout the site, they do not directly modify
+ *the display. Rather they load content into post[message] and post[error_message]
+ *
+ */
 
-//dj makes a request that only a specific set of djs can make
-//(variosus functions are provided for this)
-//INPUT: bool from the right validation function (determined by show or by time)
-//ACTION: tell user to log in to continue (user actions are not visable to guests, assumed time out)
-//OUTPUT: string if validated, null if not
+/*
+Purpose: warn a dj if they are trying to edit a show/set/track they are not affiliated with 
+Input: boolean
+Output:none
+Accesses: none
+Modifies: none
+Visual effects:
+    message: none
+    error message: if false then warns user
+Database effects: none
+Other: none
+*/
 function is_right_dj($right)
     {
     warn($right, "please log in as a DJ with access to this to continue.");
     return $right;
     }
     
-//user makes a request that only a logged in user can make
-//INPUT: none
-//ACTION: tell user to log in to continue (user actions are not visable to guests, assumed time out)
-//OUTPUT: string if validated, null if not
+/*
+Purpose: warn a user if they are trying to do something dj+ level, and are not logged
+Input: none
+Output:none
+Accesses: none
+Modifies: none
+Visual effects:
+    message: none
+    error message: if warns user if SESSION[user_id] is not set (user is not logged in)
+Database effects: none
+Other: none
+*/
 function is_dj()
     {
     $right = dj();
     warn($right, "please log in as a DJ with access to this to continue.");
     return $right;
     }
-//checks if current user has admin status when user requests an admin action
-//ACTION: tell user to log in to continue (admin actions are not visable to non-admins, assumed time out)
-//RETURNS: true if admin, false if not
+/*
+Purpose: warn a user if they are trying to do aux+ activity and are dj level
+Input: boolean
+Output:none
+Accesses: none
+Modifies: none
+Visual effects:
+    message: none
+    error message: if SESSION[user_level] < 2 warn user
+Database effects: none
+Other: none
+*/
 function is_aux()
     {
     $is_admin = aux();
     warn($is_admin, "please log in as an aux to continue.");
     return $is_admin;
     }
-//checks if current user has admin status when user requests an admin action
-//ACTION: tell user to log in to continue (admin actions are not visable to non-admins, assumed time out)
-//RETURNS: true if admin, false if not
+/*
+Purpose: warn a aux- if they are trying to do something at manager level
+Input: boolean
+Output:none
+Accesses: none
+Modifies: none
+Visual effects:
+    message: none
+    error message: if SESSION[user_level] < 3  warn user
+Database effects: none
+Other: none
+*/
 function is_manager()
     {
     $is_admin = manager();
     warn($is_admin, "please log in as a manager to continue.");
     return $is_admin;
     }
-//wrapper that prints a warning if a condition is not met
-//INPUT: condition status (bool), message if status is false
-//VISIBLE ACTION: a warning if the condition is not met
-//OUTPUT: the condition status
+/*
+Purpose: wrapper to take a message and print it if a condition is not met,
+without interuptig program flow. This is often used in if statements to let the user
+know exactly why something was rejected
+Input: boolean, message string
+Output: boolean (unmodified)
+Accesses: none
+Modifies: none
+Visual effects:
+    message: none
+    error message: if false then warns user
+Database effects: none
+Other: none
+*/
 function warn($b, $message)
     {
     if (!$b) print_error_message($message);
     return $b;
     }
     
-//prints an error message to the user 
-//INPUT: message string
-//VISIBLE ACTION: prints reddish message to top bar (section d)
-//OUTPUT: none
+/*
+Purpose: adds message to error messages in printing queue GLOBAL[error_message]
+Input: message string
+Output:none
+Accesses: none
+Modifies: none
+Visual effects:
+    message: none
+    error message: message string
+Database effects: none
+Other: none
+*/
 function print_error_message($message)
     {
         
     //if other messages are in que then this one is appended
     set_global("error_message", get_global('error_message')."$message");
     }
-//prints a message to the user
-//(black text in the top bar)
-//INPUT: message string
-//VISIBLE ACTION: prints message to top bar (section d)
-//OUTPUT: none
+/*
+Purpose: adds message to messages in printing queue GLOBAL[message]
+Input: message string
+Output:none
+Accesses: none
+Modifies: none
+Visual effects:
+    message: message string
+    error message: none
+Database effects: none
+Other: none
+*/
 function print_message($message)
     {
     //if other messages are in que then this one is appended
     set_global("message", get_global('message')."$message");
     }
   
-//takes a sucess message and an error message and a bool,
-//prints sucess if true error if not
-//used for wrapping other functios
+/*
+Purpose: wraps an operation and provides feeback about it's sucess/failure
+Input: boolean, message string, error message string
+Output:boolean (unmodified)
+Accesses: none
+Modifies: none
+Visual effects:
+    message: message string if boolean = true
+    error message: error message string if boolean = false
+Database effects: none
+Other: used to wrap database insertions/updates
+*/
 function op_feedback($op, $succ_message, $fail_message)
 {
     if ($op && $succ_message)
         print_message($suc_message);
     elseif ($fail_message)
         print_error_message($fail_message);
+    return $op;
 }
 
 ?>

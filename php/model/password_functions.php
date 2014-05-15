@@ -29,7 +29,7 @@ function check_password($password){
                 $user_entry = $user_entry->fetch_assoc();
                 if (isset($user_entry["user_password"]))
                     {
-                    $password = hash('sha256', $password . "yadayadayada");
+                    $password = hash_it($password);
 
                     $good = ($user_entry['user_password'] == $password);
                     if ($good) $good = $user_entry["level_id"];
@@ -38,6 +38,11 @@ function check_password($password){
         }
         return $good;
 
+}
+function hash_it($string){
+    
+    //return hash('sha256', $password . "yadayadayada");
+    return($string);
 }
 
 ?>

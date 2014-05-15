@@ -84,8 +84,8 @@ function time_dj($time){
     $set_id = null;
     if (!$valid_dj){
         $query = "SELECT FIRST(set.show_name), set.set_id FROM shows
-                INNER JOIN ON set
-                ON set.show_name = shows.show_name
+                INNER JOIN ON sets
+                ON sets.show_name = shows.show_name
                 INNER JOIN ON show_user
                 ON show_user.show_name = shows.show_name
                 AND set.set_start < $min_time

@@ -1,4 +1,8 @@
 <?php
+/*validate email adresses and send mail functions. Grouped together because of
+ *a common theme only */
+
+
 //INPUT: subject string, content string, email address, user name
 //VISIBLE ACTION: none, but should recieve email
 //OUTPUT: none

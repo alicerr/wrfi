@@ -1,11 +1,18 @@
 <?php
+//FINISHED
+//ADD COMMENTS
 
-//takes a feild,  min length, max length, feild name, and nullity (is feild allowed to be null)
-//returns a cleaned string if cleaned (possibly shrtened) string meets min and max
-//warns user if they violate criteria
-//by calling the pervassive print_error_message (see view files)
-//min deafalts to 1 if null, max to 255
-//will shorten strings
+/*
+Purpose: validates a feild, providing error message feedback if it does not validate
+Input: feild (value), min length (if null defaults to 1), max length (if null defaults to 255), feildname,
+is the feld allowed to be null? (boolean)
+Output: cleaned feild (value)
+Accesses: none
+Modifies: none
+Visual  effects: error message if null and not null, or if no null and not meeting length requirments
+Database effects: none
+Other:  none
+*/
 function valid_f($feild, $min, $max, $feild_name, $null_allowed){
     $fc = clean($feild);
     if (!$max) $max = 255;
@@ -19,11 +26,33 @@ function valid_f($feild, $min, $max, $feild_name, $null_allowed){
     }
     return $fc;
 }
-//strips anything before and including www. from a string
+/*
+Purpose: removes the begining part f a website link for storage, so that we
+can make links out of stored links
+Input: website string
+Output: website string with http... removed
+Accesses: none
+Modifies: none
+Visual effectL: none
+Database effects: none
+Other:  none
+*/
 function website_f($string){
     if (strpos($string, "www.") >= 0)
     {
         return substr($string, strpos($string, "www.") + 4 );
+    }
+    else if (strpos($string, "://") >= 0)
+    {
+        return substr($string, strpos($string, "https://") + 3 );
+    }
+    else if (strpos($string, "https:") >= 0)
+    {
+        return substr($string, strpos($string, "https:") + 6 );
+    }
+        else if (strpos($string, "http:") >= 0)
+    {
+        return substr($string, strpos($string, "http:") + 5 );
     }
     return $string;
 }
@@ -318,10 +347,11 @@ function delete_set($set_id)
 //deletes a track played
 //retrurns start is success
 function delete_track_played($start){
-    /**$changed = false;
+    $changed = false;
     if (can_edit_at_time($start) && feedback_op(query("DELETE from track_played WHERE start = start", $suppress_warnings), "track removed from $start", "track not removed from $start"))
         $changed = $start;
-    return $changed **/
+    return $changed;
+    
 }
 
 
